@@ -1,9 +1,20 @@
 # Nite Nyamins Mobile App
 
 ## Getting Started
-1. Install dependencies
+
+### Pre-requisites
+- Node LTS
+- Yarn
+- MacOS
+- XCode
+
+### Install dependencies
 `yarn install`
 
-2. Running on iOS Simulator
+### Running on iOS Simulator
 Requires you have Xcode installed, and an iOS simulator
+1. Generate the iOS native artifacts
+`yarn ios:prebuild`
+
+2. Start the application
 `yarn run ios`

@@ -3,6 +3,7 @@ import React from "react";
 
 const HomeScreen = () => {
 
+
   const vendors: Vendor[] = [
     {id: '1', name: 'Vendor 1'},
     {id: '2', name: 'Vendor 2'},
@@ -33,7 +34,7 @@ const HomeScreen = () => {
             renderItem={renderVendorItem}
             keyExtractor={(item) => item.id}
             contentContainerStyle={styles.listContent}
-            ItemSeparatorComponent={() => <View style={styles.separator} />}
+            ItemSeparatorComponent={() => <View style={styles.separator}/>}
             ListEmptyComponent={() => (
               <Text style={styles.emptyText}>No vendors found nearby</Text>
             )}
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
     flexDirection: 'column',
-    width: '90%'
+    width: '90%',
   },
   header: {
     padding: 16,
