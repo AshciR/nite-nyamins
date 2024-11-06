@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "io.ashcir.nite_nyamins"
     },
     "web": {
       "favicon": "./assets/favicon.png"

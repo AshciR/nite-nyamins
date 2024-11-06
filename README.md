@@ -5,8 +5,9 @@
 ### Pre-requisites
 - Node LTS
 - Yarn
-- MacOS
-- XCode
+- MacOS (iOS)
+- XCode (iOS)
+- Android Studio
 
 ### Install dependencies
 `yarn install`
@@ -18,3 +19,12 @@ Requires you have Xcode installed, and an iOS simulator
 
 2. Start the application
 `yarn run ios`
+
+### Running on Android Simulator
+Requires you have Android Studio installed and an Android simulator.
+Follow the instructions [here](https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=simulated&mode=development-build&buildEnv=local)
+1. Generate the iOS native artifacts
+   `yarn android:prebuild`
+
+2. Start the application
+   `yarn run android`
