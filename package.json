@@ -8,6 +8,7 @@
     "test:ci": "jest",
     "android": "expo run:android",
     "ios": "expo run:ios",
+    "android:prebuild": "expo prebuild --platform android",
     "ios:prebuild": "expo prebuild --platform ios",
     "web": "expo start --web"
   },
