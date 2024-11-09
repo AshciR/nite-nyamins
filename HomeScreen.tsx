@@ -1,8 +1,13 @@
-import {FlatList, ListRenderItem, StyleSheet, Text, View} from "react-native";
-import React from "react";
+import {FlatList, ListRenderItem, Pressable, StyleSheet, Switch, Text, View} from "react-native";
+import React, {useState} from "react";
 
 const HomeScreen = () => {
 
+  const [titleToggle, setTitleToggle] = useState(true)
+
+  const handleTitleToggle = () => {
+    setTitleToggle(!titleToggle)
+  }
 
   const vendors: Vendor[] = [
     {id: '1', name: 'Vendor 1'},
@@ -17,7 +22,7 @@ const HomeScreen = () => {
 
       {/*Header Container*/}
       <View style={styles.header}>
-        <Text style={styles.headerText}>Street Vendor Tracker</Text>
+        <Text style={styles.headerText}>{titleToggle ? "Street Vendor Tracker" : "Nite Nyammins"}</Text>
       </View>
 
       {/*Map and List container*/}
@@ -39,6 +44,17 @@ const HomeScreen = () => {
               <Text style={styles.emptyText}>No vendors found nearby</Text>
             )}
           />
+        </View>
+
+        <View>
+          <Text>Change Home Screen Title</Text>
+          <Pressable onPress={handleTitleToggle} aria-label="change-home-screen-title-toggle">
+            <Switch
+              value={titleToggle}
+              onValueChange={handleTitleToggle}
+              testID="change-home-screen-title-switch"
+            />
+          </Pressable>
         </View>
 
       </View>
