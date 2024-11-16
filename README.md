@@ -28,3 +28,7 @@ Follow the instructions [here](https://docs.expo.dev/get-started/set-up-your-env
 
 2. Start the application
    `yarn run android`
+
+### Troubleshooting
+If the styling for elements are missing, try clearing the cache by 
+`expo start --clear`

@@ -44,4 +44,13 @@ describe('<HomeScreen />', () => {
     expect(screen.getByTestId("change-home-screen-title-switch")).not.toBeChecked()
   });
 
+  test('Hello World button should be present', () => {
+    // When: The home screen renders
+    render(<HomeScreen />);
+
+    // Then: Button should be present
+    const button = screen.getByRole('button', {name: "Hello World"});
+    expect(button).toBeOnTheScreen()
+  });
+
 });

@@ -1,5 +1,6 @@
 import {FlatList, ListRenderItem, Pressable, StyleSheet, Switch, Text, View} from "react-native";
 import React, {useState} from "react";
+import {Button, ButtonText} from "@/components/ui/button";
 
 const HomeScreen = () => {
 
@@ -45,6 +46,10 @@ const HomeScreen = () => {
             )}
           />
         </View>
+
+        <Button size="md" variant="solid" action="primary">
+          <ButtonText>Hello World</ButtonText>
+        </Button>
 
         <View>
           <Text>Change Home Screen Title</Text>
