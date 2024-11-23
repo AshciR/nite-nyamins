@@ -1,6 +1,12 @@
-import {FlatList, ListRenderItem, Pressable, StyleSheet, Switch, Text, View} from "react-native";
+import {FlatList, ListRenderItem, Pressable, StyleSheet, View} from "react-native";
 import React, {useState} from "react";
+import {VStack} from "@/components/ui/vstack";
+import {Heading} from "@/components/ui/heading";
+import {Card} from "@/components/ui/card";
+import {Text} from "@/components/ui/text";
+import {Box} from "@/components/ui/box";
 import {Button, ButtonText} from "@/components/ui/button";
+import {Switch} from "@/components/ui/switch";
 
 const HomeScreen = () => {
 
@@ -19,22 +25,24 @@ const HomeScreen = () => {
   ];
 
   return (
-    <View style={styles.container}>
+    <Box
+      className="bg-background-info"
+      style={{flex: 1, display: "flex", justifyContent: "flex-start"}}
+    >
+      <VStack style={{flex:1}}>
 
-      {/*Header Container*/}
-      <View style={styles.header}>
-        <Text style={styles.headerText}>{titleToggle ? "Street Vendor Tracker" : "Nite Nyammins"}</Text>
-      </View>
+        <Box>
+          <Heading>{titleToggle ? "Street Vendor Tracker" : "Nite Nyammins"}</Heading>
+        </Box>
 
-      {/*Map and List container*/}
-      <View style={styles.mainContent}>
+        <Box style={{flex: 1}}>
+          <Card style={{flex: 1}} className="rounded-lg max-w-[300px]" size="lg" variant="outline">
+            <Text>Map will go here</Text>
+          </Card>
+        </Box>
 
-        <View style={styles.mapContainer}>
-          <Text style={styles.placeholderText}>Map will go here</Text>
-        </View>
-
-        <View style={styles.listContainer}>
-          <Text style={styles.listHeader}>Nearby Vendors</Text>
+        <Box className={"mb-10"} style={{flex: 2}}>
+          <Heading>Nearby Vendors</Heading>
           <FlatList<Vendor>
             data={vendors}
             renderItem={renderVendorItem}
@@ -45,25 +53,31 @@ const HomeScreen = () => {
               <Text style={styles.emptyText}>No vendors found nearby</Text>
             )}
           />
-        </View>
+        </Box>
 
-        <Button size="md" variant="solid" action="primary">
-          <ButtonText>Hello World</ButtonText>
-        </Button>
+        <Box style={{flex: 1, alignItems: "center", justifyContent: "center"}} className="bg-background-error">
+          <Button size="md" variant="solid" action="primary">
+            <ButtonText>Hello World</ButtonText>
+          </Button>
+        </Box>
 
-        <View>
-          <Text>Change Home Screen Title</Text>
-          <Pressable onPress={handleTitleToggle} aria-label="change-home-screen-title-toggle">
+        <Box style={{flex: 2, alignItems: "center", justifyContent: "center"}}>
+          <Heading>Change Home Screen Title</Heading>
+          <Pressable
+            onPress={handleTitleToggle}
+            aria-label="change-home-screen-title-toggle"
+          >
             <Switch
+              size="md"
               value={titleToggle}
               onValueChange={handleTitleToggle}
               testID="change-home-screen-title-switch"
             />
           </Pressable>
-        </View>
+        </Box>
 
-      </View>
-    </View>
+      </VStack>
+    </Box>
   )
 
 }
@@ -79,9 +93,9 @@ type VendorListItemProps = {
 
 const VendorListItem: React.FC<VendorListItemProps> = ({vendor}) => {
   return (
-    <View>
+    <Card>
       <Text>{vendor.name} placeholder</Text>
-    </View>
+    </Card>
   );
 };
 
