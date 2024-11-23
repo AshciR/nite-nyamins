@@ -26,9 +26,11 @@
     ]
   },
   "dependencies": {
+    "@expo/html-elements": "0.4.2",
     "@gluestack-ui/button": "^1.0.8",
     "@gluestack-ui/nativewind-utils": "1.0.23",
     "@gluestack-ui/overlay": "^0.1.16",
+    "@gluestack-ui/switch": "^0.1.23",
     "@gluestack-ui/toast": "^1.0.8",
     "babel-plugin-module-resolver": "^5.0.2",
     "expo": "52.0.10",

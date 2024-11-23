@@ -30,5 +30,11 @@ Follow the instructions [here](https://docs.expo.dev/get-started/set-up-your-env
    `yarn run android`
 
 ### Troubleshooting
-If the styling for elements are missing, try clearing the cache by 
+1. If the styling for elements are missing, try clearing the cache by 
 `expo start --clear`
+
+2. If you run into `global.css Jest Process was killed`. Run the following
+```
+yarn ios:prebuild
+yarn run ios
+```
