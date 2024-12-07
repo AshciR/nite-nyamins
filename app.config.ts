@@ -1,5 +1,8 @@
-{
-  "expo": {
+import { ExpoConfig} from 'expo/config';
+
+export default (): ExpoConfig => {
+
+  return {
     "name": "nite-nyamins",
     "slug": "nite-nyamins",
     "version": "1.0.0",
@@ -14,7 +17,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "io.ashcir-nite-nyamins"
+      "bundleIdentifier": "io.ashcir-nite-nyamins",
+      "config": {
+        "googleMapsApiKey": process.env.GOOGLE_MAPS_API_KEY
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -27,4 +33,5 @@
       "favicon": "./assets/favicon.png"
     }
   }
+
 }
