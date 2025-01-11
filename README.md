@@ -8,9 +8,23 @@
 - MacOS (iOS)
 - XCode (iOS)
 - Android Studio
+- MapBox Access Tokens
 
 ### Install dependencies
 `yarn install`
+
+### Getting MapBox Access tokens
+We use `@rnmapbox/maps` library to display maps. You'll need to get the proper credentials. 
+
+If you haven't created one yet, make sure to sign up for an account [here](https://www.mapbox.com/signup/). 
+You can create and manage your access tokens on your [Mapbox Account page](https://www.mapbox.com/account/).
+You'll need two tokens:
+- Secret access token with (Downloads:Read) scope to download iOS and Android SDK from mapbox. The secret token starts with sk.ey
+- Public token to use as accessToken when running the app. The public token starts with pk.ey
+
+### Setting Env Variables
+We use a `.env.local` file for local development. Set the needed variables there.
+Look at `.env-template` for the required variables.
 
 ### Running on iOS Simulator
 Requires you have Xcode installed, and an iOS simulator
