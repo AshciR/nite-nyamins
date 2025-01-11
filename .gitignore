@@ -20,8 +20,8 @@ web-build/
 *.mobileprovision
 
 # Prebuild files
-ios
-android
+ios/
+android/
 
 # Metro
 .metro-health-check*

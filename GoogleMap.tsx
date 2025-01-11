@@ -2,7 +2,7 @@ import {Box} from "@/components/ui/box";
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
 import {StyleSheet} from "react-native";
 
-const Map = () => {
+const GoogleMap = () => {
   return (
     <Box style={styles.container}>
       <MapView
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Map;
+export default GoogleMap;

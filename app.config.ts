@@ -15,6 +15,20 @@ export default (): ExpoConfig => {
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins":[
+      [
+        "@rnmapbox/maps",
+        {
+          "RNMapboxMapsDownloadToken": process.env.MAPBOX_DOWNLOAD_TOKEN
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Show current location on map."
+        }
+      ]
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "io.ashcir-nite-nyamins",
@@ -31,6 +45,9 @@ export default (): ExpoConfig => {
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "mapBoxAccessToken": process.env.MAPBOX_ACCESS_TOKEN
     }
   }
 
