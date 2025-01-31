@@ -41,7 +41,10 @@ const MapboxMap = () => {
           <SymbolLayer
             id="vendor-icons"
             style={{
-              iconImage: "pin"
+              iconImage: "pin",
+              iconSize: 0.75,
+              iconAllowOverlap: true,
+              iconAnchor: "bottom"
             }}
           />
           <Images images={{pin}}/>
