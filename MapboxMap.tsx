@@ -16,6 +16,10 @@ const MapboxMap = () => {
   const vendorLocations = featureCollection([
     point([-76.812076, 18.035770]),
     point([-76.812215, 18.036226]),
+    point([-76.811364, 18.035524]),
+    point([-76.812633, 18.035880]),
+    point([-76.811330, 18.035848]),
+    point([-76.811573, 18.035758])
   ]);
 
   return (
