@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {StyleSheet} from "react-native";
-import Mapbox, {Camera, Images, LocationPuck, MapView, ShapeSource, SymbolLayer} from "@rnmapbox/maps";
+import Mapbox, {Camera, CircleLayer, Images, LocationPuck, MapView, ShapeSource, SymbolLayer} from "@rnmapbox/maps";
 import {Box} from "@/components/ui/box";
 import Constants from "expo-constants"
 import {featureCollection, point} from "@turf/turf";
@@ -41,7 +41,18 @@ const MapboxMap = () => {
         <ShapeSource
           id="vendors"
           shape={vendorLocations}
+          cluster={true}
         >
+          <CircleLayer
+            id="vender-clusters"
+            style={{
+              circleColor: "#eb5e34",
+              circleRadius: 15,
+              circleOpacity: 0.5,
+
+            }}
+          />
+
           <SymbolLayer
             id="vendor-icons"
             style={{
