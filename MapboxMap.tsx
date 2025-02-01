@@ -23,8 +23,6 @@ const MapboxMap = () => {
     point([-76.811573, 18.035758])
   ]);
 
-  console.log(JSON.stringify(vendorLocations, null, 2))
-
   return (
     <Box style={styles.container}>
       <MapView
@@ -41,14 +39,27 @@ const MapboxMap = () => {
           followZoomLevel={16}
         />
         <LocationPuck puckBearingEnabled puckBearing="heading" pulsing={{isEnabled: true}}/>
+
         <ShapeSource
           id="vendors"
           shape={vendorLocations}
           cluster={true}
+          onPress={(event) => console.log(JSON.stringify(event, null, 2))}
         >
+          <SymbolLayer
+            id="vender-clusters-count"
+            filter={["has", "point_count"]}
+            style={{
+              textField: ["get", "point_count_abbreviated"],
+              textColor: "black",
+              textPitchAlignment: "viewport",
+              textSize: 20
+            }}
+          />
+
           <CircleLayer
             id="vender-clusters"
-            filter={["has", "point_count"]}
+            filter={["has", "cluster"]}
             style={{
               circleColor: "#eb5e34",
               circleRadius: 15,
