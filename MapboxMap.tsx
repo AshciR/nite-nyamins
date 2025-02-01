@@ -5,6 +5,7 @@ import {Box} from "@/components/ui/box";
 import Constants from "expo-constants"
 import {featureCollection, point} from "@turf/turf";
 import pin from "assets/food_location_pin_48x48.png"
+import {FilterExpression} from "@rnmapbox/maps/src/utils/MapboxStyles";
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapBoxAccessToken || "");
 
@@ -21,6 +22,8 @@ const MapboxMap = () => {
     point([-76.811330, 18.035848]),
     point([-76.811573, 18.035758])
   ]);
+
+  console.log(JSON.stringify(vendorLocations, null, 2))
 
   return (
     <Box style={styles.container}>
@@ -45,16 +48,19 @@ const MapboxMap = () => {
         >
           <CircleLayer
             id="vender-clusters"
+            filter={["has", "point_count"]}
             style={{
               circleColor: "#eb5e34",
               circleRadius: 15,
               circleOpacity: 0.5,
-
+              circleStrokeWidth: 2,
+              circleStrokeColor: "grey"
             }}
           />
 
           <SymbolLayer
             id="vendor-icons"
+            filter={["!", ["has", "point_count"]]}
             style={{
               iconImage: "pin",
               iconSize: 0.75,
