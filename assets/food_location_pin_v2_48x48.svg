@@ -1,0 +1,10 @@
+<svg 
+    width="48" height="48" viewBox="0 0 100 100"
+    fill="none" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Map Pin Shape -->
+    <path 
+        d="M50 5C30 5 10 23 10 45C10 70 50 95 50 95C50 95 90 70 90 45C90 23 70 5 50 5Z" 
+        fill="#FF5733" stroke="black" stroke-width="3"/>
+</svg>
+

@@ -4,8 +4,7 @@ import Mapbox, {Camera, CircleLayer, Images, LocationPuck, MapView, ShapeSource,
 import {Box} from "@/components/ui/box";
 import Constants from "expo-constants"
 import {featureCollection, point} from "@turf/turf";
-import pin from "assets/food_location_pin_48x48.png"
-import {FilterExpression} from "@rnmapbox/maps/src/utils/MapboxStyles";
+import pin from "assets/food_location_pin_v2_black_outline_48x48.png"
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapBoxAccessToken || "");
 
@@ -65,7 +64,7 @@ const MapboxMap = () => {
               circleRadius: 15,
               circleOpacity: 0.5,
               circleStrokeWidth: 2,
-              circleStrokeColor: "grey"
+              circleStrokeColor: "black"
             }}
           />
 
