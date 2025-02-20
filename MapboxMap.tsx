@@ -1,10 +1,10 @@
 import React, {useEffect} from "react";
 import {StyleSheet} from "react-native";
-import Mapbox, {Camera, Images, LocationPuck, MapView, ShapeSource, SymbolLayer} from "@rnmapbox/maps";
+import Mapbox, {Camera, CircleLayer, Images, LocationPuck, MapView, ShapeSource, SymbolLayer} from "@rnmapbox/maps";
 import {Box} from "@/components/ui/box";
 import Constants from "expo-constants"
 import {featureCollection, point} from "@turf/turf";
-import pin from "assets/food_location_pin_48x48.png"
+import pin from "assets/food_location_pin_v2_black_outline_48x48.png"
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapBoxAccessToken || "");
 
@@ -16,6 +16,10 @@ const MapboxMap = () => {
   const vendorLocations = featureCollection([
     point([-76.812076, 18.035770]),
     point([-76.812215, 18.036226]),
+    point([-76.811364, 18.035524]),
+    point([-76.812633, 18.035880]),
+    point([-76.811330, 18.035848]),
+    point([-76.811573, 18.035758])
   ]);
 
   return (
@@ -34,14 +38,44 @@ const MapboxMap = () => {
           followZoomLevel={16}
         />
         <LocationPuck puckBearingEnabled puckBearing="heading" pulsing={{isEnabled: true}}/>
+
         <ShapeSource
           id="vendors"
           shape={vendorLocations}
+          cluster={true}
+          onPress={(event) => console.log(JSON.stringify(event, null, 2))}
         >
           <SymbolLayer
-            id="vendor-icons"
+            id="vender-clusters-count"
+            filter={["has", "point_count"]}
             style={{
-              iconImage: "pin"
+              textField: ["get", "point_count_abbreviated"],
+              textColor: "black",
+              textPitchAlignment: "viewport",
+              textSize: 20
+            }}
+          />
+
+          <CircleLayer
+            id="vender-clusters"
+            filter={["has", "cluster"]}
+            style={{
+              circleColor: "#eb5e34",
+              circleRadius: 15,
+              circleOpacity: 0.5,
+              circleStrokeWidth: 2,
+              circleStrokeColor: "black"
+            }}
+          />
+
+          <SymbolLayer
+            id="vendor-icons"
+            filter={["!", ["has", "point_count"]]}
+            style={{
+              iconImage: "pin",
+              iconSize: 0.75,
+              iconAllowOverlap: true,
+              iconAnchor: "bottom"
             }}
           />
           <Images images={{pin}}/>
