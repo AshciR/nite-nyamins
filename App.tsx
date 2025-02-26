@@ -3,13 +3,13 @@ import "@/global.css";
 import {GluestackUIProvider} from "@/components/ui/gluestack-ui-provider";
 import {Platform, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import React from "react";
-import MapboxMap from "@/MapboxMap";
+import Home from "@/components/screens/Home";
 
 export default function App() {
   return (
     <GluestackUIProvider mode="light">
       <SafeAreaView style={styles.container}>
-        <MapboxMap/>
+        <Home/>
         <ExpoStatusBar style="auto"/>
       </SafeAreaView>
     </GluestackUIProvider>

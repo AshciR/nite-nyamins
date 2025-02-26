@@ -7,6 +7,7 @@ import {Text} from "@/components/ui/text";
 import {Box} from "@/components/ui/box";
 import {Button, ButtonText} from "@/components/ui/button";
 import {Switch} from "@/components/ui/switch";
+import {Vendor} from "@/models";
 
 const HomeScreen = () => {
 
@@ -80,11 +81,6 @@ const HomeScreen = () => {
     </Box>
   )
 
-}
-
-interface Vendor {
-  id: string;
-  name: string;
 }
 
 type VendorListItemProps = {
