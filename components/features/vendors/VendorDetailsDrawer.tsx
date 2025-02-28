@@ -10,7 +10,7 @@ import {
 import React, {Dispatch, SetStateAction} from "react"
 import {Heading} from "@/components/ui/heading";
 import {Text} from "@/components/ui/text";
-import {Vendor} from "@/models";
+import {Vendor} from "@/components/features/vendors/models";
 
 type VendorDetailsDrawerProps = {
   isOpen: boolean

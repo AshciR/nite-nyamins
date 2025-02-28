@@ -1,7 +1,7 @@
 import React from 'react';
 import {fireEvent, render, screen, userEvent, waitFor} from '@testing-library/react-native';
 import VendorDetailsDrawer from './VendorDetailsDrawer';
-import {Vendor} from "@/models";
+import {Vendor} from "@/components/features/vendors/models";
 import {GluestackUIProvider} from "@/components/ui/gluestack-ui-provider";
 
 
