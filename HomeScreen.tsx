@@ -7,7 +7,7 @@ import {Text} from "@/components/ui/text";
 import {Box} from "@/components/ui/box";
 import {Button, ButtonText} from "@/components/ui/button";
 import {Switch} from "@/components/ui/switch";
-import {Vendor} from "@/models";
+import {Vendor} from "@/components/features/vendors/models";
 
 const HomeScreen = () => {
 

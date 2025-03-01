@@ -5,12 +5,12 @@ import {Box} from "@/components/ui/box";
 import Constants from "expo-constants"
 import pin from "@/assets/food_location_pin_v2_black_outline_48x48.png"
 import {FeatureCollection, GeoJsonObject} from "geojson";
-import {Vendor} from "@/models";
+import {Vendor} from "@/components/features/vendors/models";
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapBoxAccessToken || "");
 
 type VendorMapProps = {
-  vendorLocations: FeatureCollection<GeoJsonObject, Vendor>
+  vendorLocations: FeatureCollection<GeoJsonObject, Vendor> | undefined
   setCurrentVendor: Dispatch<SetStateAction<Vendor |undefined>>
   setIsVendorDetailsDisplayed: Dispatch<SetStateAction<boolean>>
 }
