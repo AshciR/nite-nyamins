@@ -1,3 +1,27 @@
+import {useQuery} from "@tanstack/react-query";
+import {featureCollection, point} from "@turf/turf";
+import {Feature, Point} from "geojson";
+import {Vendor} from "@/components/features/vendors/models";
+
+const useVendorsQuery = () => {
+  return useQuery({
+    queryKey: ['vendors'],
+    queryFn: fetchVendorLocations
+  });
+};
+
+const fetchVendorLocations = async () => {
+  const response = await fetchVendorsEndpoint();
+
+  if (response.status !== 200) {
+    throw new Error('Failed to fetch vendor locations');
+  }
+
+  const vendorList = await response.json();
+  const points = vendorList.vendors.map(v => convertVendorJsonToPointFeature(v));
+  return featureCollection(points);
+};
+
 const vendorResponse: VendorsListJson = {
   "vendors": [
     {
@@ -57,12 +81,15 @@ const vendorResponse: VendorsListJson = {
   ]
 }
 
-const fetchVendors = (): Promise<JsonResponse> => {
+
+const fetchVendorsEndpoint = (): Promise<JsonResponse> => {
   return new Promise((resolve) => {
-    resolve({
-      status: 200,
-      json: () => Promise.resolve(vendorResponse)
-    })
+    setTimeout(() => {
+      resolve({
+        status: 200,
+        json: () => Promise.resolve(vendorResponse)
+      })
+    }, 500)
   })
 }
 
@@ -85,9 +112,16 @@ type VendorJson = {
   rating: number;
 };
 
-
-export {
-  fetchVendors,
+const convertVendorJsonToPointFeature = (vendor: VendorJson): Feature<Point, Vendor> => {
+  return point([vendor.longitude, vendor.latitude], {
+    id: vendor.id,
+    name: vendor.name,
+    openingHour: vendor.openingHour,
+    closingHour: vendor.closingHour,
+    rating: vendor.rating,
+  });
 };
 
+
 export type {VendorJson}
+export {useVendorsQuery, convertVendorJsonToPointFeature};
