@@ -4,7 +4,8 @@ import {GluestackUIProvider} from "@/components/ui/gluestack-ui-provider";
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {Platform, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import React from "react";
-import Home from "@/components/screens/Home";
+import {NavigationContainer} from "@react-navigation/native";
+import MainNavigator from "@/components/screens/MainNavigator";
 
 export default function App() {
 
@@ -20,10 +21,12 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider mode="light">
-        <SafeAreaView style={styles.container}>
-          <Home/>
-          <ExpoStatusBar style="auto"/>
-        </SafeAreaView>
+        <NavigationContainer>
+          <SafeAreaView style={styles.container}>
+            <MainNavigator/>
+            <ExpoStatusBar style="auto"/>
+          </SafeAreaView>
+        </NavigationContainer>
       </GluestackUIProvider>
     </QueryClientProvider>
   );

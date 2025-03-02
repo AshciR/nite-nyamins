@@ -6,7 +6,7 @@ import {
 import {Feature, Point} from "@types/geojson";
 import {Vendor} from "@/components/features/vendors/models";
 import {renderHook, waitFor} from "@testing-library/react-native";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {getQueryWrapper} from "@/jest-setup";
 
 describe("convertVendorJsonToPointFeature", () => {
   it("should convert a VendorJson object into a GeoJSON Point Feature", () => {
@@ -52,7 +52,7 @@ describe("useVendorsQuery",() => {
     // When: We call the vendors hook
     const {result} = renderHook(
       () => useVendorsQuery(),
-      {wrapper: createQueryWrapper()}
+      {wrapper: getQueryWrapper()}
     )
 
     // Then: it should be successful
@@ -63,23 +63,6 @@ describe("useVendorsQuery",() => {
 
   })
 })
-
-const createQueryWrapper = () => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-        gcTime: Infinity
-      },
-    },
-  })
-
-  return ({children}) => (
-    <QueryClientProvider client={queryClient}>
-      {children}
-    </QueryClientProvider>
-  )
-}
 
 const getVendorFeatures = () => {
   return {
