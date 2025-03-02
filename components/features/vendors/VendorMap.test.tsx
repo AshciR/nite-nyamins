@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react-native';
-import vendorLocations from "@/components/features/vendors/vendorApi";
+import vendorLocations from "@/components/features/vendors/vendorService";
 import VendorMap from "@/components/features/vendors/VendorMap";
 
 describe('<VendorMap />', () => {

@@ -43,8 +43,7 @@ const VendorMap: React.FC<VendorMapProps> = (
       >
         <Camera
           defaultSettings={{
-            zoomLevel: 16,
-            centerCoordinate: [-76.810140, 18.033315]
+            zoomLevel: 16
           }}
           followUserLocation={true}
           followZoomLevel={16}
