@@ -1,13 +1,16 @@
 import VendorMap from "@/components/features/vendors/VendorMap";
 import VendorDetailsDrawer from "@/components/features/vendors/VendorDetailsDrawer";
-import React, {useState} from "react";
+import React from "react";
 import {useVendorsQuery} from "@/components/features/vendors/vendorService";
-import {Vendor} from "@/components/features/vendors/models";
+import {useVendorStore} from "@/components/features/vendors/vendorStore";
+import {useStore} from "zustand/react";
 
 const Home = () => {
 
-  const [currentVendor, setCurrentVendor] = useState<Vendor | undefined>(undefined)
-  const [isVendorDetailsDisplayed, setIsVendorDetailsDisplayed] = useState<boolean>(false)
+  const currentVendor = useStore(useVendorStore, (state) => state.currentVendor)
+  const setCurrentVendor = useStore(useVendorStore, (state) => state.setCurrentVendor)
+  const isVendorDetailsDisplayed = useStore(useVendorStore, (state) => state.isVendorDetailsDisplayed)
+  const setIsVendorDetailsDisplayed = useStore(useVendorStore, (state) => state.setIsVendorDetailsDisplayed)
 
   const {data: vendorLocations} = useVendorsQuery()
 
