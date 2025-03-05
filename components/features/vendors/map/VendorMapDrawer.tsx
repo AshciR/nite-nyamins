@@ -18,7 +18,7 @@ type VendorDetailsDrawerProps = {
   vendor?: Vendor
 }
 
-const VendorDetailsDrawer: React.FC<VendorDetailsDrawerProps> = (
+const VendorMapDrawer: React.FC<VendorDetailsDrawerProps> = (
   {
     isOpen,
     onClose,
@@ -66,4 +66,4 @@ function getStarRating(rating: number) {
   return "🤤️".repeat(rating);
 }
 
-export default VendorDetailsDrawer
+export default VendorMapDrawer

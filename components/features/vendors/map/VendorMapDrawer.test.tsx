@@ -1,11 +1,11 @@
 import React from 'react';
 import {fireEvent, render, screen, userEvent, waitFor} from '@testing-library/react-native';
-import VendorDetailsDrawer from './VendorDetailsDrawer';
+import VendorMapDrawer from './VendorMapDrawer';
 import {Vendor} from "@/components/features/vendors/models";
 import {GluestackUIProvider} from "@/components/ui/gluestack-ui-provider";
 
 
-describe('<VendorDetailsDrawer />', () => {
+describe('<VendorMapDrawer />', () => {
 
   beforeEach(() => {
     jest.useFakeTimers();
@@ -23,9 +23,9 @@ describe('<VendorDetailsDrawer />', () => {
     // Given: a vendor object and a mock onClose callback
     const mockOnClose = jest.fn();
 
-    // When: The VendorDetailsDrawer is rendered with the vendor prop
+    // When: The VendorMapDrawer is rendered with the vendor prop
     render(
-      <VendorDetailsDrawer
+      <VendorMapDrawer
         isOpen={true}
         onClose={mockOnClose}
         vendor={vendor}
@@ -43,9 +43,9 @@ describe('<VendorDetailsDrawer />', () => {
     // Given: no vendor (null) and a mock onClose callback
     const mockOnClose = jest.fn();
 
-    // When: The VendorDetailsDrawer is rendered without a vendor
+    // When: The VendorMapDrawer is rendered without a vendor
     render(
-      <VendorDetailsDrawer
+      <VendorMapDrawer
         isOpen={true}
         onClose={mockOnClose}
         vendor={undefined}
@@ -63,7 +63,7 @@ describe('<VendorDetailsDrawer />', () => {
     const user = userEvent.setup({delay: 1});
 
     render(
-      <VendorDetailsDrawer
+      <VendorMapDrawer
         isOpen={true}
         onClose={mockOnClose}
         vendor={vendor}
@@ -71,7 +71,7 @@ describe('<VendorDetailsDrawer />', () => {
       {wrapper: GluestackUIProvider}
     );
 
-    // When: The VendorDetailsDrawer is rendered and the close button is clicked
+    // When: The VendorMapDrawer is rendered and the close button is clicked
     const closeButton = await screen.findByTestId('drawer-close-button');
     fireEvent.press(closeButton);
 

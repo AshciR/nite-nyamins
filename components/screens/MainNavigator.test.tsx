@@ -32,12 +32,12 @@ describe('MainNavigator', () => {
     jest.useFakeTimers();
   });
 
-  test('renders Home screen by default', async () => {
+  test('renders HomeScreenDemo screen by default', async () => {
 
     // When: The navigator renders
     render(<MainNavigator/>, {wrapper: NavigationProvider});
 
-    // Then: Expect the Home screen to be visible (make sure Home renders identifiable text)
+    // Then: Expect the HomeScreenDemo screen to be visible (make sure HomeScreenDemo renders identifiable text)
     const homeScreenText = await screen.findByText('Home');
     expect(homeScreenText).toBeOnTheScreen();
 
@@ -54,7 +54,7 @@ describe('MainNavigator', () => {
     const vendorTabButtons = await screen.findAllByTestId("vendors-tab-button")
     await user.press(vendorTabButtons[0]) // Ionicons
 
-    // Then: Expect the Home screen to be visible (make sure Home renders identifiable text)
+    // Then: Expect the HomeScreenDemo screen to be visible (make sure HomeScreenDemo renders identifiable text)
     const vendorsScreenText = await screen.findByText('Vendors Screen')
     expect(vendorsScreenText).toBeOnTheScreen()
 

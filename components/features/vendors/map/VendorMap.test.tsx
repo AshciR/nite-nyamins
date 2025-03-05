@@ -1,7 +1,7 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react-native';
 import {convertVendorJsonToPointFeature, VendorJson} from "@/components/features/vendors/vendorService";
-import VendorMap from "@/components/features/vendors/VendorMap";
+import VendorMap from "@/components/features/vendors/map/VendorMap";
 import {Feature, Point} from "geojson";
 import {Vendor} from "@/components/features/vendors/models";
 import {featureCollection} from "@turf/turf";

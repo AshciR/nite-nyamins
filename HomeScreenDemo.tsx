@@ -9,7 +9,7 @@ import {Button, ButtonText} from "@/components/ui/button";
 import {Switch} from "@/components/ui/switch";
 import {Vendor} from "@/components/features/vendors/models";
 
-const HomeScreen = () => {
+const HomeScreenDemo = () => {
 
   const [titleToggle, setTitleToggle] = useState(true)
 
@@ -153,4 +153,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default HomeScreenDemo;

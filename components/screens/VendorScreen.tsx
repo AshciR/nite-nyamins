@@ -6,7 +6,7 @@ import {Text} from "@/components/ui/text";
 import {useStore} from "zustand/react";
 import {useVendorStore} from "@/components/features/vendors/vendorStore";
 
-const VendorsScreen: React.FC = () => {
+const VendorScreen: React.FC = () => {
 
   const currentVendor = useStore(useVendorStore, (state) => state.currentVendor)
 
@@ -32,4 +32,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default VendorsScreen;
+export default VendorScreen;

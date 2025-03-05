@@ -1,11 +1,11 @@
-import VendorMap from "@/components/features/vendors/VendorMap";
-import VendorDetailsDrawer from "@/components/features/vendors/VendorDetailsDrawer";
+import VendorMap from "@/components/features/vendors/map/VendorMap";
+import VendorMapDrawer from "@/components/features/vendors/map/VendorMapDrawer";
 import React from "react";
 import {useVendorsQuery} from "@/components/features/vendors/vendorService";
 import {useVendorStore} from "@/components/features/vendors/vendorStore";
 import {useStore} from "zustand/react";
 
-const Home = () => {
+const HomeScreen = () => {
 
   const currentVendor = useStore(useVendorStore, (state) => state.currentVendor)
   const setCurrentVendor = useStore(useVendorStore, (state) => state.setCurrentVendor)
@@ -21,7 +21,7 @@ const Home = () => {
         setIsVendorDetailsDisplayed={setIsVendorDetailsDisplayed}
         setCurrentVendor={setCurrentVendor}
       />
-      <VendorDetailsDrawer
+      <VendorMapDrawer
         isOpen={isVendorDetailsDisplayed}
         onClose={setIsVendorDetailsDisplayed}
         vendor={currentVendor}
@@ -31,4 +31,4 @@ const Home = () => {
 
 }
 
-export default Home;
+export default HomeScreen;

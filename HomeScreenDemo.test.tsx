@@ -1,20 +1,20 @@
 import {fireEvent, render, screen, userEvent} from '@testing-library/react-native';
 
-import HomeScreen from "./HomeScreen";
+import HomeScreenDemo from "./HomeScreenDemo";
 
-describe('<HomeScreen />', () => {
-  test('Title renders correctly on HomeScreen', () => {
+describe('<HomeScreenDemo />', () => {
+  test('Title renders correctly on HomeScreenDemo', () => {
     // When: The home screen renders
-    render(<HomeScreen />);
+    render(<HomeScreenDemo />);
 
     // Then: Header should be present
     const header = screen.getByText('Street Vendor Tracker');
     expect(header).toBeOnTheScreen()
   });
 
-  test('Vendors are on the HomeScreen', () => {
+  test('Vendors are on the HomeScreenDemo', () => {
     // When: The home screen renders
-    render(<HomeScreen />);
+    render(<HomeScreenDemo />);
 
     // Then: Header should be present
     const vendors = screen.getAllByText(/Vendor \d+/);
@@ -24,8 +24,8 @@ describe('<HomeScreen />', () => {
   test("Toggle changes title", async () => {
     const user = userEvent.setup({delay: 1});
 
-    // Given: Home screen has the default title
-    render(<HomeScreen />);
+    // Given: HomeScreenDemo screen has the default title
+    render(<HomeScreenDemo />);
     const title = screen.getByText('Street Vendor Tracker');
     expect(title).toBeOnTheScreen();
 
@@ -46,7 +46,7 @@ describe('<HomeScreen />', () => {
 
   test('Hello World button should be present', () => {
     // When: The home screen renders
-    render(<HomeScreen />);
+    render(<HomeScreenDemo />);
 
     // Then: Button should be present
     const button = screen.getByRole('button', {name: "Hello World"});
