@@ -1,8 +1,8 @@
 import {Routes} from "@/components/screens/routes";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Ionicons} from '@expo/vector-icons';
-import Home from "@/components/screens/Home";
-import VendorsScreen from "@/components/screens/VendorsScreen";
+import HomeScreen from "@/components/screens/HomeScreen";
+import VendorScreen from "@/components/screens/VendorScreen";
 
 const Tab = createBottomTabNavigator<Routes>();
 
@@ -24,8 +24,8 @@ const MainNavigator = () => {
         tabBarInactiveTintColor: 'gray',
       })}
     >
-      <Tab.Screen name="Home" component={Home}/>
-      <Tab.Screen name="Vendors" component={VendorsScreen}/>
+      <Tab.Screen name="Home" component={HomeScreen}/>
+      <Tab.Screen name="Vendors" component={VendorScreen}/>
     </Tab.Navigator>
   );
 };
