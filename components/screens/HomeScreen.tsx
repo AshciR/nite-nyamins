@@ -1,11 +1,11 @@
-import VendorMap from "@/components/features/vendors/map/VendorMap";
-import VendorMapDrawer from "@/components/features/vendors/map/VendorMapDrawer";
+import VendorsMap from "@/components/features/vendors/map/VendorsMap";
+import VendorsMapDrawer from "@/components/features/vendors/map/VendorsMapDrawer";
 import React from "react";
 import {useVendorsQuery} from "@/components/features/vendors/vendorService";
 import {useVendorStore} from "@/components/features/vendors/vendorStore";
 import {useStore} from "zustand/react";
 
-const HomeScreen = () => {
+const HomeScreen: React.FC= () => {
 
   const currentVendor = useStore(useVendorStore, (state) => state.currentVendor)
   const setCurrentVendor = useStore(useVendorStore, (state) => state.setCurrentVendor)
@@ -16,12 +16,12 @@ const HomeScreen = () => {
 
   return (
     <>
-      <VendorMap
+      <VendorsMap
         vendorLocations={vendorLocations}
         setIsVendorDetailsDisplayed={setIsVendorDetailsDisplayed}
         setCurrentVendor={setCurrentVendor}
       />
-      <VendorMapDrawer
+      <VendorsMapDrawer
         isOpen={isVendorDetailsDisplayed}
         onClose={setIsVendorDetailsDisplayed}
         vendor={currentVendor}

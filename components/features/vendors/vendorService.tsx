@@ -66,7 +66,7 @@ const vendorResponse: VendorsListJson = {
       "longitude": -76.812800,
       "latitude": 18.036100,
       "openingHour": 12,
-      "closingHour": 24,
+      "closingHour": 0,
       "rating": 3
     },
     {

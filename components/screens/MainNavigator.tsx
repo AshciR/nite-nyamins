@@ -3,6 +3,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Ionicons} from '@expo/vector-icons';
 import HomeScreen from "@/components/screens/HomeScreen";
 import VendorScreen from "@/components/screens/VendorScreen";
+import {primary} from "@/color.constants";
 
 const Tab = createBottomTabNavigator<Routes>();
 
@@ -20,7 +21,7 @@ const MainNavigator = () => {
             testID={`${route.name.toLowerCase()}-tab-button`}
           />;
         },
-        tabBarActiveTintColor: '#FF5733',
+        tabBarActiveTintColor: primary,
         tabBarInactiveTintColor: 'gray',
       })}
     >

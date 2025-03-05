@@ -15,7 +15,7 @@ type VendorMapProps = {
   setIsVendorDetailsDisplayed: Dispatch<SetStateAction<boolean>>
 }
 
-const VendorMap: React.FC<VendorMapProps> = (
+const VendorsMap: React.FC<VendorMapProps> = (
   {
     vendorLocations,
     setCurrentVendor,
@@ -135,4 +135,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default VendorMap
+export default VendorsMap
