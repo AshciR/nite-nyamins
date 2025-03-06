@@ -11,6 +11,7 @@ import React, {Dispatch, SetStateAction} from "react"
 import {Heading} from "@/components/ui/heading";
 import {Text} from "@/components/ui/text";
 import {Vendor} from "@/components/features/vendors/models";
+import {convertHourToString} from "@/components/features/vendors/utils";
 
 type VendorDetailsDrawerProps = {
   isOpen: boolean
@@ -18,7 +19,7 @@ type VendorDetailsDrawerProps = {
   vendor?: Vendor
 }
 
-const VendorMapDrawer: React.FC<VendorDetailsDrawerProps> = (
+const VendorsMapDrawer: React.FC<VendorDetailsDrawerProps> = (
   {
     isOpen,
     onClose,
@@ -41,7 +42,7 @@ const VendorMapDrawer: React.FC<VendorDetailsDrawerProps> = (
           </DrawerHeader>
           <DrawerBody>
             <Text className="font-semibold" size="lg">
-              {`Opening Hours: ${vendor.openingHour} - ${vendor.closingHour}`}
+              {`Opening Hours: ${convertHourToString(vendor.openingHour)} - ${convertHourToString(vendor.closingHour)}`}
             </Text>
             <Text className="font-semibold" size="lg">
               {`Ratings: ${getStarRating(vendor.rating)}`}
@@ -66,4 +67,4 @@ function getStarRating(rating: number) {
   return "🤤️".repeat(rating);
 }
 
-export default VendorMapDrawer
+export default VendorsMapDrawer

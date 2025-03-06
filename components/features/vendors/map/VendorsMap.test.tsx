@@ -1,12 +1,12 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react-native';
 import {convertVendorJsonToPointFeature, VendorJson} from "@/components/features/vendors/vendorService";
-import VendorMap from "@/components/features/vendors/map/VendorMap";
+import VendorsMap from "@/components/features/vendors/map/VendorsMap";
 import {Feature, Point} from "geojson";
 import {Vendor} from "@/components/features/vendors/models";
 import {featureCollection} from "@turf/turf";
 
-describe('<VendorMap />', () => {
+describe('<VendorsMap />', () => {
   test('renders the MapView with vendor locations and handles press events', () => {
 
     // Given: A sample GeoJSON FeatureCollection with one vendor
@@ -29,9 +29,9 @@ describe('<VendorMap />', () => {
     const vendorPoint: Feature<Point, Vendor> = convertVendorJsonToPointFeature(vendor);
     const vendorLocations = featureCollection([vendorPoint])
 
-    // When: The VendorMap component is rendered
+    // When: The VendorsMap component is rendered
     render(
-      <VendorMap
+      <VendorsMap
         vendorLocations={vendorLocations}
         setCurrentVendor={setCurrentVendor}
         setIsVendorDetailsDisplayed={setIsVendorDetailsDisplayed}

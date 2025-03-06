@@ -144,7 +144,7 @@ const getVendorFeatures = () => {
           "type": "Point"
         },
         "properties": {
-          "closingHour": 24,
+          "closingHour": 0,
           "id": "5",
           "name": "Yaad Vibes",
           "openingHour": 12,
