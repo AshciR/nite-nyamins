@@ -1,50 +1,46 @@
-import {Heading} from "@/components/ui/heading";
-import {Text} from "@/components/ui/text";
 import React from "react";
-import {StyleSheet, View, ViewStyle} from "react-native";
-import {Vendor} from "@/components/features/vendors/models";
+import {StyleSheet, ViewStyle} from "react-native";
+import {VendorWithMenu} from "@/components/features/vendors/models";
 import {VStack} from "@/components/ui/vstack";
 import {isVendorOpen} from "@/components/features/vendors/utils";
 import {VendorNameAndOpeningHours} from "@/components/features/vendors/details/VendorNameAndOpeningHours";
+import {Separator} from "@/components/features/vendors/details/Separator";
+import {MealCard} from "@/components/features/vendors/details/MealCard";
 
 type VendorDetailsProps = {
-  currentVendor?: Vendor
+  vendorWithMenu?: VendorWithMenu
 }
 
-const VendorDetails: React.FC<VendorDetailsProps> = ({currentVendor}) => {
+const VendorDetails: React.FC<VendorDetailsProps> = ({vendorWithMenu}) => {
 
   const currentHour = new Date().getHours()
-  const isOpen = isVendorOpen(currentHour, currentVendor)
+
+  const vendor = vendorWithMenu?.vendor
+  console.log("--- In Vendor Details component. vendor =", vendor)
+
+  const menu = vendorWithMenu?.menu ?? []
+  console.log("--- In Vendor Details component. menu =", menu)
+
+  const isOpen = isVendorOpen(currentHour, vendor)
 
   return (
     <VStack style={styles.container} space="lg">
 
       <VendorNameAndOpeningHours
-        currentVendor={currentVendor}
+        currentVendor={vendor}
         isOpen={isOpen}
       />
 
       <VStack style={styles.separatorContainer}>
-        {/*Extract into component*/}
-        <View style={{
-          height: 1,
-          backgroundColor: 'grey', // or any color you prefer
-          width: '100%',
-        }}/>
+        <Separator/>
       </VStack>
 
-      {/*Meal Data*/}
-      <VStack style={styles.innerContainer}>
-        <Heading style={styles.text}>Vendors Screen</Heading>
-        <Text>{`Vendor Name: ${currentVendor?.name}`}</Text>
-        <Text>{`Rating: ${currentVendor?.rating}`}</Text>
-      </VStack>
-
-      {/*See More Button*/}
-      <VStack style={styles.seeMoreButtonContainer}>
-        <Heading style={styles.text}>Vendors Screen</Heading>
-        <Text>{`Vendor Name: ${currentVendor?.name}`}</Text>
-        <Text>{`Rating: ${currentVendor?.rating}`}</Text>
+      <VStack style={styles.menuContainer} space={"sm"}>
+        <MealCard meal={menu[0]}/>
+        <MealCard meal={menu[1]}/>
+        <MealCard meal={menu[0]}/>
+        <MealCard meal={menu[1]}/>
+        <MealCard meal={menu[0]}/>
       </VStack>
 
     </VStack>
@@ -72,9 +68,12 @@ const styles = StyleSheet.create({
     paddingBottom: "5%",
     margin: "2%"
   },
-  innerContainer: {
+  separatorContainer: {
+    width: "90%"
+  },
+  menuContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     width: "90%",
     backgroundColor: '#f2f2f2',
@@ -82,14 +81,6 @@ const styles = StyleSheet.create({
     borderStyle: 'dotted',
     borderWidth: 1,
   },
-  visible: {
-    flex: 1,
-    borderColor: 'blue',
-    borderStyle: 'dotted',
-    borderWidth: 1
-  },
-  separatorContainer: {...commonContainerStyles},
-  seeMoreButtonContainer: {...commonContainerStyles},
 });
 
 export {VendorDetails};

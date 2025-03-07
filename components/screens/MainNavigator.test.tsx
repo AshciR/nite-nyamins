@@ -51,8 +51,8 @@ describe('MainNavigator', () => {
     await user.press(vendorTabButtons[0]) // Ionicons
 
     // Then: Expect the HomeScreenDemo screen to be visible (make sure HomeScreenDemo renders identifiable text)
-    const vendorsScreenText = await screen.findAllByText('Vendors Screen')
-    expect(vendorsScreenText[0]).toBeOnTheScreen()
+    const vendorsScreenText = await screen.findByTestId('vendor-details-vendor-name')
+    expect(vendorsScreenText).toBeOnTheScreen()
 
   });
 

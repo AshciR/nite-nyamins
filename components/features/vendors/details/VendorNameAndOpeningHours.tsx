@@ -30,7 +30,13 @@ export const VendorNameAndOpeningHours: React.FC<VendorNameAndOpeningHoursProps>
 
   return (
     <VStack style={styles.container}>
-      <Heading size={"3xl"}>{currentVendor?.name}</Heading>
+      <Heading
+        size={"3xl"}
+        style={styles.headingText}
+        testID={"vendor-details-vendor-name"}
+      >
+        {currentVendor?.name}
+      </Heading>
       
       <HStack style={styles.openingHoursContainer}>
 
@@ -66,6 +72,9 @@ const styles = StyleSheet.create({
     borderColor: '#000000',
     borderStyle: 'dotted',
     borderWidth: 1,
+  },
+  headingText: {
+    color: '#000000'
   },
   openingHoursContainer: {
     flex: 0,
