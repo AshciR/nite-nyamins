@@ -11,7 +11,7 @@ import React, {Dispatch, SetStateAction} from "react"
 import {Heading} from "@/components/ui/heading";
 import {Text} from "@/components/ui/text";
 import {Vendor} from "@/components/features/vendors/models";
-import {convertHourToString} from "@/components/features/vendors/utils";
+import {convertIsoTimeToAmOrPm} from "@/components/features/vendors/utils";
 
 type VendorDetailsDrawerProps = {
   isOpen: boolean
@@ -42,7 +42,7 @@ const VendorsMapDrawer: React.FC<VendorDetailsDrawerProps> = (
           </DrawerHeader>
           <DrawerBody>
             <Text className="font-semibold" size="lg">
-              {`Opening Hours: ${convertHourToString(vendor.openingHour)} - ${convertHourToString(vendor.closingHour)}`}
+              {`Opening Hours: ${convertIsoTimeToAmOrPm(vendor.openingTime)} - ${convertIsoTimeToAmOrPm(vendor.closingTime)}`}
             </Text>
             <Text className="font-semibold" size="lg">
               {`Ratings: ${getStarRating(vendor.rating)}`}

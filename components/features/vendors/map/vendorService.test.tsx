@@ -17,8 +17,8 @@ describe("convertVendorJsonToPointFeature", () => {
       name: "Irie Pots",
       longitude: -76.812076,
       latitude: 18.035770,
-      openingHour: 10,
-      closingHour: 22,
+      openingTime: "10:00:00",
+      closingTime: "22:00:00",
       rating: 3,
     };
 
@@ -35,8 +35,8 @@ describe("convertVendorJsonToPointFeature", () => {
       properties: {
         id: "1",
         name: "Irie Pots",
-        openingHour: 10,
-        closingHour: 22,
+        openingTime: "10:00:00",
+        closingTime: "22:00:00",
         rating: 3,
       },
     });
@@ -76,10 +76,10 @@ const getVendorFeatures = () => {
           "type": "Point"
         },
         "properties": {
-          "closingHour": 22,
+          "closingTime": "22:00:00",
           "id": "1",
           "name": "Irie Pots",
-          "openingHour": 10,
+          "openingTime": "10:00:00",
           "rating": 3
         },
         "type": "Feature"
@@ -93,10 +93,10 @@ const getVendorFeatures = () => {
           "type": "Point"
         },
         "properties": {
-          "closingHour": 21,
+          "closingTime": "21:00:00",
           "id": "2",
           "name": "Jerk Pork Primer",
-          "openingHour": 9,
+          "openingTime": "09:00:00",
           "rating": 4
         },
         "type": "Feature"
@@ -110,10 +110,10 @@ const getVendorFeatures = () => {
           "type": "Point"
         },
         "properties": {
-          "closingHour": 23,
+          "closingTime": "23:00:00",
           "id": "3",
           "name": "Spice Haven",
-          "openingHour": 11,
+          "openingTime": "11:00:00",
           "rating": 5
         },
         "type": "Feature"
@@ -127,10 +127,10 @@ const getVendorFeatures = () => {
           "type": "Point"
         },
         "properties": {
-          "closingHour": 20,
+          "closingTime": "20:00:00",
           "id": "4",
           "name": "Reggae Bites",
-          "openingHour": 8,
+          "openingTime": "08:00:00",
           "rating": 1
         },
         "type": "Feature"
@@ -144,10 +144,10 @@ const getVendorFeatures = () => {
           "type": "Point"
         },
         "properties": {
-          "closingHour": 0,
+          "closingTime": "00:00:00",
           "id": "5",
           "name": "Yaad Vibes",
-          "openingHour": 12,
+          "openingTime": "12:00:00",
           "rating": 3
         },
         "type": "Feature"
@@ -161,10 +161,10 @@ const getVendorFeatures = () => {
           "type": "Point"
         },
         "properties": {
-          "closingHour": 22,
+          "closingTime": "22:00:00",
           "id": "6",
           "name": "Tropical Twist",
-          "openingHour": 10,
+          "openingTime": "10:00:00",
           "rating": 4
         },
         "type": "Feature"

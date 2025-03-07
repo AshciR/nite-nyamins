@@ -21,8 +21,8 @@ describe('<VendorsMap />', () => {
       name: "Irie Pots",
       longitude: -76.812076,
       latitude: 18.035770,
-      openingHour: 10,
-      closingHour: 22,
+      openingTime: "10:00",
+      closingTime: "22:00",
       rating: 3,
     };
 

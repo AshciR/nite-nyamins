@@ -1,9 +1,8 @@
 import React from 'react';
 import {fireEvent, render, screen, userEvent, waitFor} from '@testing-library/react-native';
 import VendorsMapDrawer from './VendorsMapDrawer';
-import {Vendor} from "@/components/features/vendors/models";
 import {GluestackUIProvider} from "@/components/ui/gluestack-ui-provider";
-import {convertHourToString} from "@/components/features/vendors/utils";
+import {getTestVendor} from "@/components/features/vendors/testUtils";
 
 
 describe('<VendorsMapDrawer />', () => {
@@ -12,13 +11,7 @@ describe('<VendorsMapDrawer />', () => {
     jest.useFakeTimers();
   });
 
-  const vendor: Vendor = {
-    id: '1',
-    name: 'Test Vendor',
-    openingHour: 20,
-    closingHour: 24,
-    rating: 4,
-  };
+  const vendor = getTestVendor()
 
   test('renders vendor details when vendor is provided', () => {
     // Given: a vendor object and a mock onClose callback
@@ -36,7 +29,7 @@ describe('<VendorsMapDrawer />', () => {
 
     // Then: The vendor details are displayed correctly
     expect(screen.getByText(vendor.name)).toBeOnTheScreen();
-    expect(screen.getByText(`Opening Hours: ${convertHourToString(vendor.openingHour)} - ${convertHourToString(vendor.closingHour)}`)).toBeOnTheScreen();
+    expect(screen.getByText(`Opening Hours: 8:00PM - 12:00AM`)).toBeOnTheScreen();
     expect(screen.getByText(`Ratings: 🤤️🤤️🤤️🤤️`)).toBeOnTheScreen();
   });
 
