@@ -13,9 +13,8 @@ type VendorDetailsProps = {
 
 const VendorDetails: React.FC<VendorDetailsProps> = ({currentVendor}) => {
 
-  const { openingHour = 0, closingHour = 0 } = currentVendor ?? {};
   const currentHour = new Date().getHours()
-  const isOpen = isVendorOpen(currentHour, openingHour, closingHour)
+  const isOpen = isVendorOpen(currentHour, currentVendor)
 
   return (
     <VStack style={styles.container} space="lg">

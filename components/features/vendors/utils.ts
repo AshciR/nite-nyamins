@@ -1,29 +1,39 @@
-const convertHourToString = (hour: number): string => {
-  if (hour === 0) {
-    return "12:00 AM";
-  } else if (hour === 12) {
-    return "12:00 PM";
-  } else if (hour < 12) {
-    return `${hour}:00 AM`;
-  } else {
-    return `${hour - 12}:00 PM`;
-  }
+import {format, parse} from "date-fns";
+import {Vendor} from "@/components/features/vendors/models";
+
+const convertIsoTimeToAmOrPm = (timeStr: string): string => {
+  // Parse just the time portion (date is irrelevant)
+  const timeDate = parse(timeStr, 'HH:mm:ss', new Date());
+  return format(timeDate, 'h:mma'); // "9:00 AM"
 };
 
-const isVendorOpen = (currentHour: number, openingHour: number, closingHour: number): boolean => {
+const isVendorOpen = (currentHour: number, vendor?: Vendor): boolean => {
+
+  if (!vendor) {
+    return false
+  }
+
+  // Use a fixed reference date for consistency
+  const referenceDate = new Date();
+
+  // Parse the vendor's opening and closing times using date-fns
+  const openingDate = parse(vendor.openingTime, 'HH:mm:ss', referenceDate);
+  const closingDate = parse(vendor.closingTime, 'HH:mm:ss', referenceDate);
+
+  const openingHour = openingDate.getHours();
+  const closingHour = closingDate.getHours();
+
   if (openingHour < closingHour) {
-    // Normal hours: Store opens and closes on the same day
-    if (currentHour >= openingHour && currentHour < closingHour) {
-      return true;
-    }
-  } else {
-    // Overnight hours: Store closes the next day
-    if (currentHour >= openingHour || currentHour < closingHour) {
-      return true;
-    }
+    // Vendor operates within the same day
+    return currentHour >= openingHour && currentHour < closingHour;
   }
-  return false;
-};
+  if (openingHour > closingHour) {
+    // Vendor operates overnight (e.g., 20:00 to 04:00)
+    return currentHour >= openingHour || currentHour < closingHour;
+  }
+  // If openingHour equals closingHour, assume vendor is open 24 hours
+  return true;
+}
 
 
-export {convertHourToString, isVendorOpen}
+export {convertIsoTimeToAmOrPm, isVendorOpen}

@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react-native';
+import {render, screen} from '@testing-library/react-native';
 import {GluestackUIProvider} from "@/components/ui/gluestack-ui-provider";
 import {VendorNameAndOpeningHours} from "@/components/features/vendors/details/VendorNameAndOpeningHours";
+import {getTestVendor} from "@/components/features/vendors/testUtils";
 
 describe('<VendorNameAndOpeningHours />', () => {
 
@@ -9,13 +10,7 @@ describe('<VendorNameAndOpeningHours />', () => {
     jest.useFakeTimers();
   });
 
-  const vendor = {
-    id: '1',
-    name: 'Test Vendor',
-    openingHour: 8,
-    closingHour: 20,
-    rating: 4,
-  };
+  const vendor = getTestVendor()
 
   test('renders vendor name and opening hours correctly when open', () => {
     // Given: a vendor object and open status
@@ -31,7 +26,7 @@ describe('<VendorNameAndOpeningHours />', () => {
 
     // Then: The vendor details are displayed correctly
     expect(screen.getByText(vendor.name)).toBeOnTheScreen();
-    expect(screen.getByText('8:00 AM - 8:00 PM')).toBeOnTheScreen();
+    expect(screen.getByText('8:00PM - 12:00AM')).toBeOnTheScreen();
     expect(screen.getByText('Open')).toBeOnTheScreen();
   });
 
@@ -56,14 +51,11 @@ describe('<VendorNameAndOpeningHours />', () => {
 
     // When: The VendorNameAndOpeningHours is rendered without a vendor
     render(
-      <VendorNameAndOpeningHours
-        isOpen={false}
-      />,
-      {wrapper: GluestackUIProvider}
+      <VendorNameAndOpeningHours isOpen={false} />,
+      { wrapper: GluestackUIProvider }
     );
 
-    // Then: The component renders without errors
-    expect(screen.getByText('Closed')).toBeOnTheScreen();
-    expect(screen.getByText('12:00 AM - 12:00 AM')).toBeOnTheScreen();
+    // Then: The component renders a fallback message without errors
+    expect(screen.getByText('No vendor available')).toBeOnTheScreen();
   });
 });

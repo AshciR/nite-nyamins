@@ -5,7 +5,7 @@ import {Heading} from "@/components/ui/heading";
 import {HStack} from "@/components/ui/hstack";
 import {Ionicons} from "@expo/vector-icons";
 import {Text} from "@/components/ui/text";
-import {convertHourToString} from "@/components/features/vendors/utils";
+import {convertIsoTimeToAmOrPm} from "@/components/features/vendors/utils";
 import {Badge, BadgeText} from "@/components/ui/badge";
 import {StyleSheet} from "react-native";
 
@@ -19,19 +19,29 @@ export const VendorNameAndOpeningHours: React.FC<VendorNameAndOpeningHoursProps>
     isOpen
   }
 ) => {
-  return (
-    <VStack style={styles.nameAndOpeningHoursContainer}>
-      <Heading size={"3xl"}>{currentVendor?.name}</Heading>
-      <HStack style={styles.openingHoursInnerContainer}>
 
-        <HStack style={styles.visible}>
+  if (!currentVendor) {
+    return (
+      <VStack style={styles.container}>
+        <Heading size={"3xl"}>No vendor available</Heading>
+      </VStack>
+    );
+  }
+
+  return (
+    <VStack style={styles.container}>
+      <Heading size={"3xl"}>{currentVendor?.name}</Heading>
+      
+      <HStack style={styles.openingHoursContainer}>
+
+        <HStack style={styles.flexZero}>
           <Ionicons name={"time-outline"} size={20}/>
           <Text>
-            {`${convertHourToString(currentVendor?.openingHour ?? 0)} - ${convertHourToString(currentVendor?.closingHour ?? 0)}`}
+            {`${convertIsoTimeToAmOrPm(currentVendor?.openingTime ?? "")} - ${convertIsoTimeToAmOrPm(currentVendor?.closingTime ?? "")}`}
           </Text>
         </HStack>
 
-        <HStack style={styles.visible} reversed={true}>
+        <HStack style={styles.flexZero} reversed={true}>
           <Badge
             size="md"
             variant="solid"
@@ -49,7 +59,7 @@ export const VendorNameAndOpeningHours: React.FC<VendorNameAndOpeningHoursProps>
 }
 
 const styles = StyleSheet.create({
-  nameAndOpeningHoursContainer: {
+  container: {
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     width: "90%",
@@ -57,7 +67,7 @@ const styles = StyleSheet.create({
     borderStyle: 'dotted',
     borderWidth: 1,
   },
-  openingHoursInnerContainer: {
+  openingHoursContainer: {
     flex: 0,
     width: "100%",
     alignItems: "center",
@@ -66,8 +76,8 @@ const styles = StyleSheet.create({
     borderStyle: 'dotted',
     borderWidth: 1,
   },
-  visible: {
-    flex: 1,
+  flexZero: {
+    flex: 0,
     borderColor: 'blue',
     borderStyle: 'dotted',
     borderWidth: 1

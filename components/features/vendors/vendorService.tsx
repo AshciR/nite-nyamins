@@ -28,9 +28,9 @@ const vendorResponse: VendorsListJson = {
       "id": "1",
       "name": "Irie Pots",
       "longitude": -76.812076,
-      "latitude": 18.035770,
-      "openingHour": 10,
-      "closingHour": 22,
+      "latitude": 18.03577,
+      "openingTime": "10:00:00",
+      "closingTime": "22:00:00",
       "rating": 3
     },
     {
@@ -38,48 +38,49 @@ const vendorResponse: VendorsListJson = {
       "name": "Jerk Pork Primer",
       "longitude": -76.812215,
       "latitude": 18.036226,
-      "openingHour": 9,
-      "closingHour": 21,
+      "openingTime": "09:00:00",
+      "closingTime": "21:00:00",
       "rating": 4
     },
     {
       "id": "3",
       "name": "Spice Haven",
-      "longitude": -76.811950,
-      "latitude": 18.036050,
-      "openingHour": 11,
-      "closingHour": 23,
+      "longitude": -76.81195,
+      "latitude": 18.03605,
+      "openingTime": "11:00:00",
+      "closingTime": "23:00:00",
       "rating": 5
     },
     {
       "id": "4",
       "name": "Reggae Bites",
-      "longitude": -76.812500,
-      "latitude": 18.035900,
-      "openingHour": 8,
-      "closingHour": 20,
+      "longitude": -76.8125,
+      "latitude": 18.0359,
+      "openingTime": "08:00:00",
+      "closingTime": "20:00:00",
       "rating": 1
     },
     {
       "id": "5",
       "name": "Yaad Vibes",
-      "longitude": -76.812800,
-      "latitude": 18.036100,
-      "openingHour": 12,
-      "closingHour": 0,
+      "longitude": -76.8128,
+      "latitude": 18.0361,
+      "openingTime": "12:00:00",
+      "closingTime": "00:00:00",
       "rating": 3
     },
     {
       "id": "6",
       "name": "Tropical Twist",
-      "longitude": -76.811700,
-      "latitude": 18.036300,
-      "openingHour": 10,
-      "closingHour": 22,
+      "longitude": -76.8117,
+      "latitude": 18.0363,
+      "openingTime": "10:00:00",
+      "closingTime": "22:00:00",
       "rating": 4
     }
   ]
 }
+
 
 
 const fetchVendorsEndpoint = (): Promise<JsonResponse> => {
@@ -107,8 +108,8 @@ type VendorJson = {
   name: string;
   longitude: number;
   latitude: number;
-  openingHour: number;
-  closingHour: number;
+  openingTime: string;
+  closingTime: string;
   rating: number;
 };
 
@@ -116,8 +117,8 @@ const convertVendorJsonToPointFeature = (vendor: VendorJson): Feature<Point, Ven
   return point([vendor.longitude, vendor.latitude], {
     id: vendor.id,
     name: vendor.name,
-    openingHour: vendor.openingHour,
-    closingHour: vendor.closingHour,
+    openingTime: vendor.openingTime,
+    closingTime: vendor.closingTime,
     rating: vendor.rating,
   });
 };
