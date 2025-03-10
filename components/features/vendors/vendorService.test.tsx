@@ -1,12 +1,13 @@
 import {
   convertVendorJsonToPointFeature,
+  useVendorMenuQuery,
   useVendorsQuery,
-  VendorJson
 } from "@/components/features/vendors/vendorService";
 import {Feature, Point} from "@types/geojson";
-import {Vendor} from "@/components/features/vendors/models";
+import {Vendor, VendorWithMenu} from "@/components/features/vendors/models";
 import {renderHook, waitFor} from "@testing-library/react-native";
 import {getQueryWrapper} from "@/jest-setup";
+import {VendorJson} from "@/components/features/vendors/mockApis";
 
 describe("convertVendorJsonToPointFeature", () => {
   it("should convert a VendorJson object into a GeoJSON Point Feature", () => {
@@ -43,11 +44,11 @@ describe("convertVendorJsonToPointFeature", () => {
   });
 })
 
-describe("useVendorsQuery",() => {
+describe("useVendorsQuery", () => {
   it("gets the vendors", async () => {
 
     // Given: Vendors endpoint is working
-    const expected = getVendorFeatures()
+    const expected = getExpectedVendorFeatures()
 
     // When: We call the vendors hook
     const {result} = renderHook(
@@ -64,7 +65,72 @@ describe("useVendorsQuery",() => {
   })
 })
 
-const getVendorFeatures = () => {
+describe("useVendorMenuQuery", () => {
+  it("get the vendor with menu", async () => {
+
+    // Given: Vendors with menu endpoint is working
+    const expectedVendorWithMenu: VendorWithMenu = {
+      vendor: {
+        "id": "2",
+        "name": "Jerk Pork Primer",
+        "openingTime": "09:00:00",
+        "closingTime": "21:00:00",
+        "rating": 4,
+      },
+      menu: [
+        {
+          "id": "201",
+          "name": "Spicy Pork Ribs",
+          "price": 1500,
+          "currency": "JMD",
+          "mealType": "pork"
+        },
+        {
+          "id": "202",
+          "name": "Island Soup",
+          "price": 800,
+          "currency": "JMD",
+          "mealType": "soup"
+        }
+      ]
+    }
+
+    // When: We use the query
+    const vendorId = "2"
+    const {result} = renderHook(
+      () => useVendorMenuQuery(vendorId),
+      {wrapper: getQueryWrapper()}
+    )
+
+    // Then: it should be successful
+    await waitFor(() => expect(result.current.isSuccess).toBe(true))
+
+    // And: It should return the data as a VendorWithMeal model
+    expect(result.current.data).toEqual(expectedVendorWithMenu)
+
+  })
+
+  it("fails to get the vendor if id doesn't exist", async () => {
+
+    // Given: Vendors with menu endpoint is working
+
+    // When: We use the query with an non-exists id
+    const vendorId = "99"
+    const {result} = renderHook(
+      () => useVendorMenuQuery(vendorId),
+      {wrapper: getQueryWrapper()}
+    )
+
+    // Then: it should be successful
+    await waitFor(() => expect(result.current.isError).toBe(true))
+
+    // And: It should return the data as a VendorWithMeal model
+    expect(result.current.data).not.toBeDefined()
+  })
+
+})
+
+const getExpectedVendorFeatures = () => {
   return {
     "features": [
       {
