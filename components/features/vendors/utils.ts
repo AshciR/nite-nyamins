@@ -7,14 +7,15 @@ const convertIsoTimeToAmOrPm = (timeStr: string): string => {
   return format(timeDate, 'h:mma'); // "9:00 AM"
 };
 
-const isVendorOpen = (currentHour: number, vendor?: Vendor): boolean => {
+const isVendorOpen = (
+  currentHour: number,
+  vendor?: Vendor,
+  referenceDate: Date = new Date()
+): boolean => {
 
   if (!vendor) {
     return false
   }
-
-  // Use a fixed reference date for consistency
-  const referenceDate = new Date();
 
   // Parse the vendor's opening and closing times using date-fns
   const openingDate = parse(vendor.openingTime, 'HH:mm:ss', referenceDate);

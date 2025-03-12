@@ -18,12 +18,12 @@ const MealCard: React.FC<MealCardProps> = ({meal}) => {
 
   return (
     <Card style={styles.cardContainer}>
-      <HStack style={styles.hstackContainer}>
-        <VStack style={styles.vstackContainer}>
-          <Heading size="md">
+      <HStack style={styles.textAndImageContainer}>
+        <VStack style={styles.nameAndPriceContainer}>
+          <Heading size="md" testID={"meal-card-meal-name"}>
             {meal.name}
           </Heading>
-          <Text>
+          <Text testID={"meal-card-meal-price"}>
             {`$${meal.price}`}
           </Text>
         </VStack>
@@ -56,41 +56,31 @@ const getMealImage = (mealType?: MealType) => mealImages[mealType as MealType] ?
 
 const styles = StyleSheet.create({
   cardContainer: {
-    flex: 1,
     width: "100%",
     borderStyle: "dotted",
     borderColor: "black",
     borderWidth: 1,
   },
-  hstackContainer: {
+  textAndImageContainer: {
     flex: 1,
     justifyContent: "space-between",
     borderStyle: "dotted",
     borderColor: "blue",
     borderWidth: 1
   },
-  vstackContainer: {
+  nameAndPriceContainer: {
     borderStyle: "dotted",
     borderColor: "black",
     borderWidth: 1,
     justifyContent: "center",
-    flex: 1
+    flex: 3
   },
   imageContainer: {
     borderStyle: "dotted",
     borderColor: "green",
     borderWidth: 1,
+    flex: 1
   },
-  visible: {
-    flex: 1,
-    borderColor: '#000000',
-    borderStyle: 'dotted',
-    borderWidth: 1,
-  },
-  image: {
-    height: "90%",
-    borderRadius: "50%"
-  }
 })
 
 export {MealCard, defaultMeal, getMealImage, mealImages}

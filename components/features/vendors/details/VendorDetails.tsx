@@ -1,27 +1,30 @@
 import React from "react";
-import {StyleSheet, ViewStyle} from "react-native";
+import {FlatList, StyleSheet} from "react-native";
 import {VendorWithMenu} from "@/components/features/vendors/models";
 import {VStack} from "@/components/ui/vstack";
 import {isVendorOpen} from "@/components/features/vendors/utils";
 import {VendorNameAndOpeningHours} from "@/components/features/vendors/details/VendorNameAndOpeningHours";
 import {Separator} from "@/components/features/vendors/details/Separator";
 import {MealCard} from "@/components/features/vendors/details/MealCard";
+import {Box} from "@/components/ui/box";
 
 type VendorDetailsProps = {
   vendorWithMenu?: VendorWithMenu
+  currentDate: Date
 }
 
-const VendorDetails: React.FC<VendorDetailsProps> = ({vendorWithMenu}) => {
+const VendorDetails: React.FC<VendorDetailsProps> = (
+  {
+    vendorWithMenu,
+    currentDate
+  }
+) => {
 
-  const currentHour = new Date().getHours()
+  const currentHour = currentDate.getHours()
 
   const vendor = vendorWithMenu?.vendor
-  console.log("--- In Vendor Details component. vendor =", vendor)
-
   const menu = vendorWithMenu?.menu ?? []
-  console.log("--- In Vendor Details component. menu =", menu)
-
-  const isOpen = isVendorOpen(currentHour, vendor)
+  const isOpen = isVendorOpen(currentHour, vendor, currentDate)
 
   return (
     <VStack style={styles.container} space="lg">
@@ -36,24 +39,19 @@ const VendorDetails: React.FC<VendorDetailsProps> = ({vendorWithMenu}) => {
       </VStack>
 
       <VStack style={styles.menuContainer} space={"sm"}>
-        <MealCard meal={menu[0]}/>
-        <MealCard meal={menu[1]}/>
-        <MealCard meal={menu[0]}/>
-        <MealCard meal={menu[1]}/>
-        <MealCard meal={menu[0]}/>
+        <FlatList
+          data={menu}
+          renderItem={({item}) => <MealCard meal={item}/>}
+          keyExtractor={(item) => item.id}
+          scrollEnabled={true}
+          ItemSeparatorComponent={() => <Box style={{height: "0.5%"}}/>}
+          contentContainerStyle={{paddingBottom: "15%"}}
+          ListFooterComponent={() => <Box style={{height: 30}}/>}
+        />
       </VStack>
 
     </VStack>
   );
-}
-
-const commonContainerStyles: ViewStyle = {
-  justifyContent: 'flex-start',
-  alignItems: 'flex-start',
-  width: "90%",
-  borderColor: '#000000',
-  borderStyle: 'dotted',
-  borderWidth: 1,
 }
 
 const styles = StyleSheet.create({
@@ -73,8 +71,6 @@ const styles = StyleSheet.create({
   },
   menuContainer: {
     flex: 1,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
     width: "90%",
     backgroundColor: '#f2f2f2',
     borderColor: '#000000',

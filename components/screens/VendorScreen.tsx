@@ -8,6 +8,7 @@ import {useVendorMenuQuery} from "@/components/features/vendors/vendorService";
 const VendorScreen: React.FC = () => {
 
   const currentVendor = useStore(useVendorStore, (state) => state.currentVendor)
+  const currentDate = new Date()
 
   const {
     data: vendorWithMenu,
@@ -17,7 +18,6 @@ const VendorScreen: React.FC = () => {
   } = useVendorMenuQuery(currentVendor?.id ?? "1")
 
   if (isPending) {
-    console.log("--- In loading component")
     return <Text>Loading...</Text>
   }
 
@@ -26,7 +26,10 @@ const VendorScreen: React.FC = () => {
   }
 
   return (
-    <VendorDetails vendorWithMenu={vendorWithMenu}/>
+    <VendorDetails
+      vendorWithMenu={vendorWithMenu}
+      currentDate={currentDate}
+    />
   );
 };
 
