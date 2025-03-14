@@ -39,6 +39,7 @@ const VendorsMap: React.FC<VendorMapProps> = (
         style={{flex: 1}}
         styleURL={"mapbox://styles/mapbox/streets-v12"}
         compassEnabled={false}
+        scaleBarEnabled={false}
         testID="vendor-map"
       >
         <Camera
