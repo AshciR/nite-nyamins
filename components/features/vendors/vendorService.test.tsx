@@ -90,7 +90,7 @@ describe("useVendorMenuQuery", () => {
           "name": "Island Soup",
           "price": 800,
           "currency": "JMD",
-          "mealType": "soup"
+          "mealType": "fish"
         }
       ]
     }

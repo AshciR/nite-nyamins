@@ -190,7 +190,63 @@ const vendorsMenuResponse: VendorsWithMealsJson = {
           "price": 500,
           "currency": "JMD",
           "mealType": "drink"
-        }
+        },
+        {
+          "id": "103",
+          "name": "Ackee and Saltfish",
+          "price": 1100,
+          "currency": "JMD",
+          "mealType": "fish"
+        },
+        {
+          "id": "104",
+          "name": "Festival Bread",
+          "price": 400,
+          "currency": "JMD",
+          "mealType": "side"
+        },
+        {
+          "id": "105",
+          "name": "Sweet Potato Pudding",
+          "price": 600,
+          "currency": "JMD",
+          "mealType": "dessert"
+        },
+        {
+          "id": "106",
+          "name": "Jerk Pork",
+          "price": 400,
+          "currency": "JMD",
+          "mealType": "pork"
+        },
+        {
+          "id": "108",
+          "name": "Steam Fish",
+          "price": 600,
+          "currency": "JMD",
+          "mealType": "fish"
+        },
+        {
+          "id": "109",
+          "name": "Jerk Pork",
+          "price": 400,
+          "currency": "JMD",
+          "mealType": "pork"
+        },
+        {
+          "id": "110",
+          "name": "Steam Fish",
+          "price": 600,
+          "currency": "JMD",
+          "mealType": "fish"
+        },
+        {
+          "id": "111",
+          "name": "Jerk Pork",
+          "price": 400,
+          "currency": "JMD",
+          "mealType": "pork"
+        },
       ]
     },
     {
@@ -214,8 +270,8 @@ const vendorsMenuResponse: VendorsWithMealsJson = {
           "name": "Island Soup",
           "price": 800,
           "currency": "JMD",
-          "mealType": "soup"
-        }
+          "mealType": "fish"
+        },
       ]
     },
     {
@@ -240,6 +296,27 @@ const vendorsMenuResponse: VendorsWithMealsJson = {
           "price": 900,
           "currency": "JMD",
           "mealType": "vegetarian"
+        },
+        {
+          "id": "303",
+          "name": "Callaloo Greens",
+          "price": 700,
+          "currency": "JMD",
+          "mealType": "vegetarian"
+        },
+        {
+          "id": "304",
+          "name": "Oxtail Stew",
+          "price": 1600,
+          "currency": "JMD",
+          "mealType": "beef"
+        },
+        {
+          "id": "305",
+          "name": "Sorrel Drink",
+          "price": 450,
+          "currency": "JMD",
+          "mealType": "drink"
         }
       ]
     },
@@ -265,6 +342,27 @@ const vendorsMenuResponse: VendorsWithMealsJson = {
           "price": 300,
           "currency": "JMD",
           "mealType": "drink"
+        },
+        {
+          "id": "403",
+          "name": "Beef Patty",
+          "price": 650,
+          "currency": "JMD",
+          "mealType": "beef"
+        },
+        {
+          "id": "404",
+          "name": "Fried Plantains",
+          "price": 400,
+          "currency": "JMD",
+          "mealType": "side"
+        },
+        {
+          "id": "405",
+          "name": "Gizzada Pastry",
+          "price": 550,
+          "currency": "JMD",
+          "mealType": "dessert"
         }
       ]
     },
@@ -290,6 +388,27 @@ const vendorsMenuResponse: VendorsWithMealsJson = {
           "price": 700,
           "currency": "JMD",
           "mealType": "soup"
+        },
+        {
+          "id": "503",
+          "name": "Brown Stew Chicken",
+          "price": 1250,
+          "currency": "JMD",
+          "mealType": "chicken"
+        },
+        {
+          "id": "504",
+          "name": "Rice and Peas",
+          "price": 500,
+          "currency": "JMD",
+          "mealType": "side"
+        },
+        {
+          "id": "505",
+          "name": "Rum Cake",
+          "price": 800,
+          "currency": "JMD",
+          "mealType": "dessert"
         }
       ]
     },
@@ -315,6 +434,27 @@ const vendorsMenuResponse: VendorsWithMealsJson = {
           "price": 600,
           "currency": "JMD",
           "mealType": "drink"
+        },
+        {
+          "id": "603",
+          "name": "Escovitch Fish",
+          "price": 1450,
+          "currency": "JMD",
+          "mealType": "fish"
+        },
+        {
+          "id": "604",
+          "name": "Coconut Shrimp",
+          "price": 1200,
+          "currency": "JMD",
+          "mealType": "seafood"
+        },
+        {
+          "id": "605",
+          "name": "Pineapple Upside-down Cake",
+          "price": 750,
+          "currency": "JMD",
+          "mealType": "dessert"
         }
       ]
     }

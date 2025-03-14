@@ -53,7 +53,7 @@ export const VendorNameAndOpeningHours: React.FC<VendorNameAndOpeningHoursProps>
             variant="solid"
             action={isOpen ? "success" : "error"}
           >
-            <BadgeText>
+            <BadgeText testID={"vendor-details-vendor-open"}>
               {isOpen ? "Open" : "Closed"}
             </BadgeText>
           </Badge>
