@@ -4,6 +4,7 @@ import {useStore} from "zustand/react";
 import {useVendorStore} from "@/components/features/vendors/vendorStore";
 import {VendorDetails} from "@/components/features/vendors/details/VendorDetails";
 import {useVendorMenuQuery} from "@/components/features/vendors/vendorService";
+import {LoadingScreen} from "@/components/screens/LoadingScreen";
 
 const VendorScreen: React.FC = () => {
 
@@ -18,7 +19,7 @@ const VendorScreen: React.FC = () => {
   } = useVendorMenuQuery(currentVendor?.id ?? "1")
 
   if (isPending) {
-    return <Text>Loading...</Text>
+    return <LoadingScreen loadingText={"Hold on..."}/>
   }
 
   if (isError) {
