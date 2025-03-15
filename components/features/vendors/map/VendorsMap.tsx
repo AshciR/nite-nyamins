@@ -6,6 +6,8 @@ import Constants from "expo-constants"
 import pin from "@/assets/food_location_pin_v2_black_outline_48x48.png"
 import {FeatureCollection, GeoJsonObject} from "geojson";
 import {Vendor} from "@/components/features/vendors/models";
+import {VStack} from "@/components/ui/vstack";
+import {Heading} from "@/components/ui/heading";
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapBoxAccessToken || "");
 
@@ -34,9 +36,17 @@ const VendorsMap: React.FC<VendorMapProps> = (
   }, [vendorLocations])
 
   return (
-    <Box style={styles.container}>
+    <VStack style={styles.container}>
+      <Heading
+        size="2xl"
+        testID={"vendor-map-title"}
+        style={styles.title}
+      >
+        Nyam
+      </Heading>
       <MapView
-        style={{flex: 1}}
+        style={styles.map}
+        compassFadeWhenNorth={true}
         styleURL={"mapbox://styles/mapbox/streets-v12"}
         compassEnabled={false}
         scaleBarEnabled={false}
@@ -94,7 +104,7 @@ const VendorsMap: React.FC<VendorMapProps> = (
         </ShapeSource>
       </MapView>
 
-    </Box>
+    </VStack>
   );
 };
 
@@ -129,10 +139,18 @@ function findVendorByEvent(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center"
+  },
+  title:{
+    alignSelf: "flex-start",
+    marginBottom: "2%",
+    paddingLeft: "2%"
   },
   map: {
+    flex: 1,
     width: '100%',
-    height: '100%',
+    borderWidth:0.5,
+    borderColor:"#b3b3b3"
   },
 });
 

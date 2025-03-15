@@ -8,7 +8,7 @@ import {featureCollection} from "@turf/turf";
 import {VendorJson} from "@/components/features/vendors/mockApis";
 
 describe('<VendorsMap />', () => {
-  test('renders the MapView with vendor locations and handles press events', () => {
+  test('renders the MapView with title and vendor locations', () => {
 
     // Given: A sample GeoJSON FeatureCollection with one vendor
     const setCurrentVendor = jest.fn();
@@ -42,5 +42,9 @@ describe('<VendorsMap />', () => {
     // Then: The MapView should be present
     const mapView = screen.getByTestId('vendor-map');
     expect(mapView).toBeOnTheScreen();
+
+    // And: The title should be there
+    const title = screen.getByTestId("vendor-map-title");
+    expect(title).toHaveTextContent("Nyam");
   });
 });

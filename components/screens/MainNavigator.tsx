@@ -12,6 +12,9 @@ const MainNavigator = () => {
     <Tab.Navigator
       screenOptions={({route}) => ({
         headerShown: false,
+        tabBarStyle:{
+          backgroundColor: '#f2f2f2',
+        },
         tabBarIcon: ({color, size}) => {
           const iconName: string = route.name === 'Home' ? 'map' : 'fast-food';
           return <Ionicons
