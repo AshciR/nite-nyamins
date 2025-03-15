@@ -1,7 +1,6 @@
 import React, {Dispatch, SetStateAction, useCallback, useEffect} from "react";
 import {StyleSheet} from "react-native";
 import Mapbox, {Camera, CircleLayer, Images, LocationPuck, MapView, ShapeSource, SymbolLayer} from "@rnmapbox/maps";
-import {Box} from "@/components/ui/box";
 import Constants from "expo-constants"
 import pin from "@/assets/food_location_pin_v2_black_outline_48x48.png"
 import {FeatureCollection, GeoJsonObject} from "geojson";
@@ -36,11 +35,13 @@ const VendorsMap: React.FC<VendorMapProps> = (
   }, [vendorLocations])
 
   return (
-    <VStack style={styles.container}>
+    <VStack
+      className={"flex-1 items-center"}
+    >
       <Heading
         size="2xl"
         testID={"vendor-map-title"}
-        style={styles.title}
+        className={"self-start mb-[2%] pl-[2%]"}
       >
         Nyam
       </Heading>
@@ -137,15 +138,7 @@ function findVendorByEvent(
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center"
-  },
-  title:{
-    alignSelf: "flex-start",
-    marginBottom: "2%",
-    paddingLeft: "2%"
-  },
+  // Have to keep this style b/c MapView doesn't work with NativeWind
   map: {
     flex: 1,
     width: '100%',

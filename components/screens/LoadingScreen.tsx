@@ -1,4 +1,3 @@
-import {StyleSheet} from "react-native";
 import React from "react";
 import {VStack} from "@/components/ui/vstack";
 import {Spinner} from "@/components/ui/spinner";
@@ -10,19 +9,16 @@ type LoadingScreenProps = {
 
 const LoadingScreen: React.FC<LoadingScreenProps> = ({loadingText = "Loading..."}) => {
   return (
-    <VStack style={styles.container}>
+    <VStack className={"flex-1 justify-center items-center"}>
       <Spinner size={"large"}/>
-      <Heading size={"lg"}>{loadingText}</Heading>
+      <Heading
+        size={"lg"}
+        className={"text-typography-900"}
+      >
+        {loadingText}
+      </Heading>
     </VStack>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-});
 
 export {LoadingScreen}

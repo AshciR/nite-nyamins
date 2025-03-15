@@ -7,7 +7,6 @@ import {Ionicons} from "@expo/vector-icons";
 import {Text} from "@/components/ui/text";
 import {convertIsoTimeToAmOrPm} from "@/components/features/vendors/utils";
 import {Badge, BadgeText} from "@/components/ui/badge";
-import {StyleSheet} from "react-native";
 
 type VendorNameAndOpeningHoursProps = {
   currentVendor?: Vendor,
@@ -22,32 +21,36 @@ export const VendorNameAndOpeningHours: React.FC<VendorNameAndOpeningHoursProps>
 
   if (!currentVendor) {
     return (
-      <VStack style={styles.container}>
+      <VStack className={containerStyle}>
         <Heading size={"3xl"}>No vendor available</Heading>
       </VStack>
     );
   }
 
   return (
-    <VStack style={styles.container}>
+    <VStack className={containerStyle}>
       <Heading
         size={"3xl"}
-        style={styles.headingText}
+        className={"text-typography-950"}
         testID={"vendor-details-vendor-name"}
       >
         {currentVendor?.name}
       </Heading>
       
-      <HStack style={styles.openingHoursContainer}>
+      <HStack
+        className={"w-[100%] items-center justify-between border border-dotted"}
+      >
 
-        <HStack style={styles.flexZero}>
+        <HStack className={blueBorder}>
           <Ionicons name={"time-outline"} size={20}/>
           <Text>
             {`${convertIsoTimeToAmOrPm(currentVendor?.openingTime ?? "")} - ${convertIsoTimeToAmOrPm(currentVendor?.closingTime ?? "")}`}
           </Text>
         </HStack>
 
-        <HStack style={styles.flexZero} reversed={true}>
+        <HStack
+          className={blueBorder}
+          reversed={true}>
           <Badge
             size="md"
             variant="solid"
@@ -64,31 +67,5 @@ export const VendorNameAndOpeningHours: React.FC<VendorNameAndOpeningHoursProps>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    width: "90%",
-    borderColor: '#000000',
-    borderStyle: 'dotted',
-    borderWidth: 1,
-  },
-  headingText: {
-    color: '#000000'
-  },
-  openingHoursContainer: {
-    flex: 0,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "space-between",
-    borderColor: '#000000',
-    borderStyle: 'dotted',
-    borderWidth: 1,
-  },
-  flexZero: {
-    flex: 0,
-    borderColor: 'blue',
-    borderStyle: 'dotted',
-    borderWidth: 1
-  },
-})
+const containerStyle = 'flex justify-start items-start w-[90%] border border-dotted border-black';
+const blueBorder = "border border-blue-500 border-dotted"

@@ -1,5 +1,5 @@
 import React from "react";
-import {FlatList, StyleSheet} from "react-native";
+import {FlatList} from "react-native";
 import {VendorWithMenu} from "@/components/features/vendors/models";
 import {VStack} from "@/components/ui/vstack";
 import {isVendorOpen} from "@/components/features/vendors/utils";
@@ -27,18 +27,20 @@ const VendorDetails: React.FC<VendorDetailsProps> = (
   const isOpen = isVendorOpen(currentHour, vendor, currentDate)
 
   return (
-    <VStack style={styles.container} space="lg">
+    <VStack
+      className={"flex-1 justify-start items-center bg-background-100 border-blue-500 border pt-[5%] pb-[5%]"}
+      space="lg"
+    >
 
       <VendorNameAndOpeningHours
         currentVendor={vendor}
         isOpen={isOpen}
       />
 
-      <VStack style={styles.separatorContainer}>
-        <Separator/>
-      </VStack>
-
-      <VStack style={styles.menuContainer} space={"sm"}>
+      <VStack
+        className={"flex-1 w-[90%] border border-black border-dotted"}
+        space={"sm"}
+      >
         <FlatList
           data={menu}
           renderItem={({item}) => <MealCard meal={item}/>}
@@ -51,32 +53,8 @@ const VendorDetails: React.FC<VendorDetailsProps> = (
       </VStack>
 
     </VStack>
-  );
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#f2f2f2',
-    borderColor: '#000000',
-    borderWidth: 1,
-    paddingTop: "5%",
-    paddingBottom: "5%",
-    margin: "2%"
-  },
-  separatorContainer: {
-    width: "90%"
-  },
-  menuContainer: {
-    flex: 1,
-    width: "90%",
-    backgroundColor: '#f2f2f2',
-    borderColor: '#000000',
-    borderStyle: 'dotted',
-    borderWidth: 1,
-  },
-});
 
 export {VendorDetails};
