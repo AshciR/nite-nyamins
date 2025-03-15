@@ -22,9 +22,11 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider mode="light">
         <NavigationContainer>
-          <SafeAreaView style={styles.container}>
+          <SafeAreaView style={styles.container} >
             <MainNavigator/>
-            <ExpoStatusBar style="auto"/>
+            <ExpoStatusBar
+              style="auto"
+            />
           </SafeAreaView>
         </NavigationContainer>
       </GluestackUIProvider>
@@ -35,6 +37,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#f2f2f2",
     justifyContent: "flex-start",
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   }
