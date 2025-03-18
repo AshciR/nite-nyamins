@@ -16,7 +16,7 @@ const MealCard: React.FC<MealCardProps> = ({meal}) => {
   const mealImageUri = getMealImage(meal.mealType)
 
   return (
-    <Card className={"w-[100%] border border-black border-dotted"}>
+    <Card className={"w-[100%] bg-secondary-0"} variant="outline">
       <HStack className={"flex-1 justify-between border border-red-700 border-dotted"}>
         <VStack className={"flex-1 justify-center border border-black border-dotted"}>
           <Heading

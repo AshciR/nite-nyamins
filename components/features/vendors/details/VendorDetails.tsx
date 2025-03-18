@@ -4,7 +4,6 @@ import {VendorWithMenu} from "@/components/features/vendors/models";
 import {VStack} from "@/components/ui/vstack";
 import {isVendorOpen} from "@/components/features/vendors/utils";
 import {VendorNameAndOpeningHours} from "@/components/features/vendors/details/VendorNameAndOpeningHours";
-import {Separator} from "@/components/features/vendors/details/Separator";
 import {MealCard} from "@/components/features/vendors/details/MealCard";
 import {Box} from "@/components/ui/box";
 
@@ -28,8 +27,7 @@ const VendorDetails: React.FC<VendorDetailsProps> = (
 
   return (
     <VStack
-      className={"flex-1 justify-start items-center bg-background-100 border-blue-500 border pt-[5%] pb-[5%]"}
-      space="lg"
+      className={"flex-1 justify-start items-center bg-background-50 border-blue-500 border p-[1%] pt-0"}
     >
 
       <VendorNameAndOpeningHours
@@ -38,7 +36,7 @@ const VendorDetails: React.FC<VendorDetailsProps> = (
       />
 
       <VStack
-        className={"flex-1 w-[90%] border border-black border-dotted"}
+        className={"flex-1 w-[100%] border border-black border-dotted"}
         space={"sm"}
       >
         <FlatList
@@ -46,9 +44,11 @@ const VendorDetails: React.FC<VendorDetailsProps> = (
           renderItem={({item}) => <MealCard meal={item}/>}
           keyExtractor={(item) => item.id}
           scrollEnabled={true}
-          ItemSeparatorComponent={() => <Box style={{height: "0.5%"}}/>}
           contentContainerStyle={{paddingBottom: "15%"}}
           ListFooterComponent={() => <Box style={{height: 30}}/>}
+          ItemSeparatorComponent={() => (
+            <Box className="h-px w-full bg-secondary-500"/>
+          )}
         />
       </VStack>
 

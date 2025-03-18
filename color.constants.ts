@@ -1,4 +1,6 @@
-const primary = "#FF5733"
-const secondary = "#4C9A2A"; // Vibrant Green
-const tertiary = "#5733FF";  // Deep Indigo
-export {primary, secondary, tertiary}
+// const primary = "#FF5733"
+
+const primary = "#5a9f61"
+const secondary = "#516352"
+const lightBackground = "#f6f6f6"
+export {primary, secondary, lightBackground}
