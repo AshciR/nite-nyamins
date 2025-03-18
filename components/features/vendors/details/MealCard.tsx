@@ -3,7 +3,6 @@ import {Meal, MealType} from "@/components/features/vendors/models";
 import {HStack} from "@/components/ui/hstack";
 import {VStack} from "@/components/ui/vstack";
 import {Image} from "@/components/ui/image";
-import {StyleSheet} from "react-native";
 import {Heading} from "@/components/ui/heading";
 import {Card} from "@/components/ui/card";
 import {Text} from "@/components/ui/text";
@@ -17,25 +16,28 @@ const MealCard: React.FC<MealCardProps> = ({meal}) => {
   const mealImageUri = getMealImage(meal.mealType)
 
   return (
-    <Card style={styles.cardContainer}>
-      <HStack style={styles.textAndImageContainer}>
-        <VStack style={styles.nameAndPriceContainer}>
-          <Heading size="md" testID={"meal-card-meal-name"}>
+    <Card className={"w-[100%] border border-black border-dotted"}>
+      <HStack className={"flex-1 justify-between border border-red-700 border-dotted"}>
+        <VStack className={"flex-1 justify-center border border-black border-dotted"}>
+          <Heading
+            className={"text-typography-950"}
+            size="md"
+            testID={"meal-card-meal-name"}
+          >
             {meal.name}
           </Heading>
-          <Text testID={"meal-card-meal-price"}>
+          <Text
+            className={"text-typography-700"}
+            testID={"meal-card-meal-price"}
+          >
             {`$${meal.price}`}
           </Text>
         </VStack>
-        <Box
-          style={styles.imageContainer}
-          className="overflow-hidden"
-        >
+        <Box className="flex-3 border border-green-500 border-dotted overflow-hidden">
           <Image
             source={mealImageUri}
             alt={`${meal.mealType} meal image`}
-            size="none"
-            className="rounded-full aspect-square w-full h-full object-cover"
+            className="rounded-full aspect-square "
           />
         </Box>
       </HStack>
@@ -53,34 +55,5 @@ const mealImages: Record<MealType, any> = {
 
 const defaultMeal = require("../../../../assets/meals/default-meal-type.png")
 const getMealImage = (mealType?: MealType) => mealImages[mealType as MealType] ?? defaultMeal;
-
-const styles = StyleSheet.create({
-  cardContainer: {
-    width: "100%",
-    borderStyle: "dotted",
-    borderColor: "black",
-    borderWidth: 1,
-  },
-  textAndImageContainer: {
-    flex: 1,
-    justifyContent: "space-between",
-    borderStyle: "dotted",
-    borderColor: "blue",
-    borderWidth: 1
-  },
-  nameAndPriceContainer: {
-    borderStyle: "dotted",
-    borderColor: "black",
-    borderWidth: 1,
-    justifyContent: "center",
-    flex: 3
-  },
-  imageContainer: {
-    borderStyle: "dotted",
-    borderColor: "green",
-    borderWidth: 1,
-    flex: 1
-  },
-})
 
 export {MealCard, defaultMeal, getMealImage, mealImages}

@@ -2,10 +2,11 @@ import {StatusBar as ExpoStatusBar} from 'expo-status-bar';
 import "@/global.css";
 import {GluestackUIProvider} from "@/components/ui/gluestack-ui-provider";
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {Platform, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {Platform, StatusBar, StyleSheet} from 'react-native';
 import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import MainNavigator from "@/components/screens/MainNavigator";
+import SafeAreaView from "@/components/ui/safe-area-view";
 
 export default function App() {
 
@@ -22,7 +23,10 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider mode="light">
         <NavigationContainer>
-          <SafeAreaView style={styles.container} >
+          <SafeAreaView
+            className={"flex-1 bg-background-100 justify-start"}
+            style={styles.container}
+          >
             <MainNavigator/>
             <ExpoStatusBar
               style="auto"
@@ -36,9 +40,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#f2f2f2",
-    justifyContent: "flex-start",
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   }
 });
