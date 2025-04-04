@@ -129,7 +129,7 @@ export const config = {
     '--color-outline-950': '26 23 23',
 
     /* Background */
-    '--color-background-0': '255 255 255',
+    '--color-background-0': '251 251 251',
     '--color-background-50': '246 246 246',
     '--color-background-100': '242 241 241',
     '--color-background-200': '220 219 219',
@@ -153,6 +153,20 @@ export const config = {
     '--color-indicator-primary': '55 55 55',
     '--color-indicator-info': '83 153 236',
     '--color-indicator-error': '185 28 28',
+
+    /* Brand Green */
+    '--color-brand-0': '255 255 255',  /* Very light pastel green, great for backgrounds */
+    '--color-brand-50': '181 228 186',  /* Very light pastel green, great for backgrounds */
+    '--color-brand-100': '156 213 162', /* Soft green, good for subtle highlights */
+    '--color-brand-200': '134 195 140', /* Secondary accents, hover states */
+    '--color-brand-300': '114 176 120', /* Primary accent for buttons & elements */
+    '--color-brand-400': '90 159 97',   /* Active elements, icons, or primary text */
+    '--color-brand-500': '88 138 93',   /* Primary buttons, strong contrast */
+    '--color-brand-600': '85 118 88',   /* Secondary buttons, muted contrast */
+    '--color-brand-700': '81 99 82',    /* Text on lighter backgrounds */
+    '--color-brand-800': '75 81 75',    /* Muted dividers, less prominent text */
+    '--color-brand-900': '67 65 67',    /* Deep contrast elements, borders */
+
   }),
   dark: vars({
     '--color-primary-0': '130 130 130',
@@ -281,7 +295,7 @@ export const config = {
     '--color-outline-950': '253 254 254',
 
     /* Background */
-    '--color-background-0': '18 18 18',
+    '--color-background-0': '24 23 25',
     '--color-background-50': '39 38 37',
     '--color-background-100': '65 64 64',
     '--color-background-200': '83 82 82',
@@ -305,5 +319,18 @@ export const config = {
     '--color-indicator-primary': '247 247 247',
     '--color-indicator-info': '161 199 245',
     '--color-indicator-error': '232 70 69',
+
+    /* Brand Green */
+    '--color-brand-0': '255 255 255',  /* Lighter highlight green */
+    '--color-brand-50': '150 215 160',  /* Lighter highlight green */
+    '--color-brand-100': '130 195 145', /* Subtle accent */
+    '--color-brand-200': '110 175 130', /* Button hover, subtle elements */
+    '--color-brand-300': '90 155 115',  /* Primary accent color */
+    '--color-brand-400': '75 135 100',  /* Active elements */
+    '--color-brand-500': '65 115 85',   /* Primary buttons */
+    '--color-brand-600': '55 95 75',    /* Secondary buttons */
+    '--color-brand-700': '45 80 65',    /* Text/icons on dark bg */
+    '--color-brand-800': '35 65 55',    /* Muted text, subtle dividers */
+    '--color-brand-900': '25 50 40',    /* Deep background, shadows */
   }),
 };

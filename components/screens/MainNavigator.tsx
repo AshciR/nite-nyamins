@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Ionicons} from '@expo/vector-icons';
 import HomeScreen from "@/components/screens/HomeScreen";
 import VendorScreen from "@/components/screens/VendorScreen";
-import {primary} from "@/color.constants";
+import {lightBackground, primary, secondary} from "@/color.constants";
 
 const Tab = createBottomTabNavigator<Routes>();
 
@@ -13,7 +13,7 @@ const MainNavigator = () => {
       screenOptions={({route}) => ({
         headerShown: false,
         tabBarStyle:{
-          backgroundColor: '#f2f2f2',
+          backgroundColor: lightBackground,
         },
         tabBarIcon: ({color, size}) => {
           const iconName: string = route.name === 'Home' ? 'map' : 'fast-food';
@@ -25,7 +25,7 @@ const MainNavigator = () => {
           />;
         },
         tabBarActiveTintColor: primary,
-        tabBarInactiveTintColor: 'gray',
+        tabBarInactiveTintColor: secondary,
       })}
     >
       <Tab.Screen name={RoutesNames.HOME} component={HomeScreen}/>

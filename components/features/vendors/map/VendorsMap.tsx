@@ -2,11 +2,12 @@ import React, {Dispatch, SetStateAction, useCallback, useEffect} from "react";
 import {StyleSheet} from "react-native";
 import Mapbox, {Camera, CircleLayer, Images, LocationPuck, MapView, ShapeSource, SymbolLayer} from "@rnmapbox/maps";
 import Constants from "expo-constants"
-import pin from "@/assets/food_location_pin_v2_black_outline_48x48.png"
+import pin from "@/assets/food_location_pin_v2_48x48.png"
 import {FeatureCollection, GeoJsonObject} from "geojson";
 import {Vendor} from "@/components/features/vendors/models";
 import {VStack} from "@/components/ui/vstack";
 import {Heading} from "@/components/ui/heading";
+import {primary} from "@/color.constants";
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapBoxAccessToken || "");
 
@@ -36,7 +37,7 @@ const VendorsMap: React.FC<VendorMapProps> = (
 
   return (
     <VStack
-      className={"flex-1 items-center"}
+      className={"flex-1 items-center bg-background-50"}
     >
       <Heading
         size="2xl"
@@ -83,7 +84,7 @@ const VendorsMap: React.FC<VendorMapProps> = (
             id="vendor-clusters"
             filter={["has", "cluster"]}
             style={{
-              circleColor: "#eb5e34",
+              circleColor: primary,
               circleRadius: 15,
               circleOpacity: 0.5,
               circleStrokeWidth: 2,

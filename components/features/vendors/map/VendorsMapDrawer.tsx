@@ -69,11 +69,11 @@ const VendorsMapDrawer: React.FC<VendorDetailsDrawerProps> = (
         )}
         <DrawerFooter className="justify-center">
           <Button
-            className="w-[90%] mb-10"
+            className="w-[90%] mb-10 bg-brand-300"
             testID={"vendor-map-drawer-details-button"}
             onPress={handleNavigateToDetails}
           >
-            <ButtonText>Details</ButtonText>
+            <ButtonText>Menu</ButtonText>
           </Button>
         </DrawerFooter>
       </DrawerContent>

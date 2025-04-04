@@ -67,5 +67,5 @@ export const VendorNameAndOpeningHours: React.FC<VendorNameAndOpeningHoursProps>
   )
 }
 
-const containerStyle = 'flex justify-start items-start w-[90%] border border-dotted border-black';
+const containerStyle = 'flex justify-start items-start w-[100%] pl-[1%] pr-[1%] border border-dotted border-black bg-secondary-0';
 const blueBorder = "border border-blue-500 border-dotted"

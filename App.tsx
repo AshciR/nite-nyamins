@@ -24,7 +24,7 @@ export default function App() {
       <GluestackUIProvider mode="light">
         <NavigationContainer>
           <SafeAreaView
-            className={"flex-1 bg-background-100 justify-start"}
+            className={"flex-1 bg-background-50 justify-start"}
             style={styles.container}
           >
             <MainNavigator/>
