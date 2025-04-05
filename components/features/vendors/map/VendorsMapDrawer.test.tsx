@@ -42,8 +42,8 @@ describe('<VendorsMapDrawer />', () => {
 
     // Then: The vendor details are displayed correctly
     expect(screen.getByText(vendor.name)).toBeOnTheScreen();
-    expect(screen.getByText(`Opening Hours: 8:00PM - 12:00AM`)).toBeOnTheScreen();
-    expect(screen.getByText(`Ratings: 🤤️🤤️🤤️🤤️`)).toBeOnTheScreen();
+    expect(screen.getByText(`Opening Hours:`)).toBeOnTheScreen();
+    expect(screen.getByText(`8:00PM - 12:00AM`)).toBeOnTheScreen();
   });
 
   test('renders fallback message when no vendor is provided', () => {
@@ -115,7 +115,7 @@ describe('<VendorsMapDrawer />', () => {
 
     // And: The navigation should navigate to the VENDORS route
     await waitFor(() => {
-      expect(mockNavigation.navigate).toHaveBeenCalledWith(RoutesNames.VENDORS);
+      expect(mockNavigation.navigate).toHaveBeenCalledWith(RoutesNames.VENDOR);
     });
   });
 

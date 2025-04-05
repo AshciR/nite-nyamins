@@ -22,7 +22,7 @@ export const VendorNameAndOpeningHours: React.FC<VendorNameAndOpeningHoursProps>
   if (!currentVendor) {
     return (
       <VStack className={containerStyle}>
-        <Heading size={"3xl"}>No vendor available</Heading>
+        <Heading size={"2xl"}>No vendor available</Heading>
       </VStack>
     );
   }
@@ -30,18 +30,18 @@ export const VendorNameAndOpeningHours: React.FC<VendorNameAndOpeningHoursProps>
   return (
     <VStack className={containerStyle}>
       <Heading
-        size={"3xl"}
-        className={"text-typography-950"}
+        size={"2xl"}
+        className={"text-brand-500"}
         testID={"vendor-details-vendor-name"}
       >
         {currentVendor?.name}
       </Heading>
       
       <HStack
-        className={"w-[100%] items-center justify-between border border-dotted"}
+        className={"w-[100%] items-center justify-between"}
       >
 
-        <HStack className={blueBorder}>
+        <HStack>
           <Ionicons name={"time-outline"} size={20}/>
           <Text>
             {`${convertIsoTimeToAmOrPm(currentVendor?.openingTime ?? "")} - ${convertIsoTimeToAmOrPm(currentVendor?.closingTime ?? "")}`}
@@ -49,7 +49,6 @@ export const VendorNameAndOpeningHours: React.FC<VendorNameAndOpeningHoursProps>
         </HStack>
 
         <HStack
-          className={blueBorder}
           reversed={true}>
           <Badge
             size="md"
@@ -67,5 +66,4 @@ export const VendorNameAndOpeningHours: React.FC<VendorNameAndOpeningHoursProps>
   )
 }
 
-const containerStyle = 'flex justify-start items-start w-[100%] pl-[1%] pr-[1%] border border-dotted border-black bg-secondary-0';
-const blueBorder = "border border-blue-500 border-dotted"
+const containerStyle = 'flex justify-start items-start w-[100%] px-[2%]';

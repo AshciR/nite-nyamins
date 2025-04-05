@@ -16,9 +16,9 @@ const MealCard: React.FC<MealCardProps> = ({meal}) => {
   const mealImageUri = getMealImage(meal.mealType)
 
   return (
-    <Card className={"w-[100%] bg-secondary-0"} variant="outline">
-      <HStack className={"flex-1 justify-between border border-red-700 border-dotted"}>
-        <VStack className={"flex-1 justify-center border border-black border-dotted"}>
+    <Card className={"w-[100%] bg-secondary-0"}>
+      <HStack className={"flex-1 justify-between"}>
+        <VStack className={"flex-1 justify-center"}>
           <Heading
             className={"text-typography-950"}
             size="md"
@@ -33,11 +33,11 @@ const MealCard: React.FC<MealCardProps> = ({meal}) => {
             {`$${meal.price}`}
           </Text>
         </VStack>
-        <Box className="flex-3 border border-green-500 border-dotted overflow-hidden">
+        <Box className="flex-3 overflow-hidden">
           <Image
             source={mealImageUri}
             alt={`${meal.mealType} meal image`}
-            className="rounded-full aspect-square "
+            className="rounded-full aspect-square"
           />
         </Box>
       </HStack>

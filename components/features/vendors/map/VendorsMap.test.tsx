@@ -45,6 +45,6 @@ describe('<VendorsMap />', () => {
 
     // And: The title should be there
     const title = screen.getByTestId("vendor-map-title");
-    expect(title).toHaveTextContent("Nyam");
+    expect(title).toHaveTextContent("Map");
   });
 });
