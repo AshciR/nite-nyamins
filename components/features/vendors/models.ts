@@ -19,7 +19,7 @@ interface Meal {
   mealType: MealType;
 }
 
-type MealType = "chicken" | "pork" | "fish" | "vegetarian";
+type MealType = "chicken" | "pork" | "fish" | "vegetarian" | "drink" | "soup";
 
 export type {MealType}
 export {Vendor, VendorWithMenu, Meal}
