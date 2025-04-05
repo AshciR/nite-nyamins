@@ -47,13 +47,15 @@ const MealCard: React.FC<MealCardProps> = ({meal}) => {
 }
 
 const mealImages: Record<MealType, any> = {
-  chicken: require("../../../../assets/meals/chicken-meal-type.png"),
-  pork: require("../../../../assets/meals/pork-meal-type.png"),
-  fish: require("../../../../assets/meals/fish-meal-type.png"),
-  vegetarian: require("../../../../assets/meals/vegeterian-meal-type.png"),
+  chicken: require("../../../../assets/meals/chicken-icon.png"),
+  pork: require("../../../../assets/meals/pork-icon.png"),
+  soup: require("../../../../assets/meals/soup-icon.png"),
+  vegetarian: require("../../../../assets/meals/vegetarian-icon.png"),
+  drink: require("../../../../assets/meals/drink-icon.png"),
+  fish: require("../../../../assets/meals/fish-icon.png"),
 };
 
-const defaultMeal = require("../../../../assets/meals/default-meal-type.png")
+const defaultMeal = require("../../../../assets/meals/default-icon.png")
 const getMealImage = (mealType?: MealType) => mealImages[mealType as MealType] ?? defaultMeal;
 
 export {MealCard, defaultMeal, getMealImage, mealImages}
