@@ -7,7 +7,7 @@ import {useStore} from "zustand/react";
 import {NavigationProp, useNavigation} from "@react-navigation/native";
 import {Routes} from "@/components/screens/routes";
 
-const HomeScreen: React.FC= () => {
+const MapScreen: React.FC= () => {
 
   // Handle state management
   const currentVendor = useStore(useVendorStore, (state) => state.currentVendor)
@@ -25,13 +25,15 @@ const HomeScreen: React.FC= () => {
     <>
       <VendorsMap
         vendorLocations={vendorLocations}
+        vendor={currentVendor}
         setIsVendorDetailsDisplayed={setIsVendorDetailsDisplayed}
         setCurrentVendor={setCurrentVendor}
       />
       <VendorsMapDrawer
         isOpen={isVendorDetailsDisplayed}
-        onClose={setIsVendorDetailsDisplayed}
+        setIsVendorDetailsDisplayed={setIsVendorDetailsDisplayed}
         vendor={currentVendor}
+        setCurrentVendor={setCurrentVendor}
         navigation={navigation as typeof useNavigation}
       />
     </>
@@ -39,4 +41,4 @@ const HomeScreen: React.FC= () => {
 
 }
 
-export default HomeScreen;
+export default MapScreen;

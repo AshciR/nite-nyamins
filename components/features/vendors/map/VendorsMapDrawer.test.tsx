@@ -1,5 +1,5 @@
 import React from 'react';
-import {fireEvent, render, screen, userEvent, waitFor} from '@testing-library/react-native';
+import {fireEvent, render, screen, waitFor} from '@testing-library/react-native';
 import VendorsMapDrawer from './VendorsMapDrawer';
 import {GluestackUIProvider} from "@/components/ui/gluestack-ui-provider";
 import {getTestVendor} from "@/components/features/vendors/testUtils";
@@ -17,7 +17,8 @@ const TestNavigationProvider = ({children}) => {
 
 describe('<VendorsMapDrawer />', () => {
 
-  const mockOnClose = jest.fn();
+  const mockSetIsVendorDetailsDisplayed = jest.fn();
+  const mockSetCurrentVendor = jest.fn();
   const mockNavigation = {navigate: jest.fn()};
 
   beforeEach(() => {
@@ -33,8 +34,9 @@ describe('<VendorsMapDrawer />', () => {
     render(
       <VendorsMapDrawer
         isOpen={true}
-        onClose={mockOnClose}
+        setIsVendorDetailsDisplayed={mockSetIsVendorDetailsDisplayed}
         vendor={vendor}
+        setCurrentVendor={mockSetCurrentVendor}
         navigation={mockNavigation}
       />,
       {wrapper: TestNavigationProvider}
@@ -53,8 +55,9 @@ describe('<VendorsMapDrawer />', () => {
     render(
       <VendorsMapDrawer
         isOpen={true}
-        onClose={mockOnClose}
+        setIsVendorDetailsDisplayed={mockSetIsVendorDetailsDisplayed}
         vendor={undefined}
+        setCurrentVendor={mockSetCurrentVendor}
         navigation={mockNavigation}
       />,
       {wrapper: TestNavigationProvider}
@@ -66,13 +69,14 @@ describe('<VendorsMapDrawer />', () => {
 
   test('calls onClose callback when the close button is clicked', async () => {
     // Given: a vendor object and a mock onClose callback
-    const mockOnClose = jest.fn();
+    const mockSetIsVendorDetailsDisplayed = jest.fn();
 
     render(
       <VendorsMapDrawer
         isOpen={true}
-        onClose={mockOnClose}
+        setIsVendorDetailsDisplayed={mockSetIsVendorDetailsDisplayed}
         vendor={vendor}
+        setCurrentVendor={mockSetCurrentVendor}
         navigation={mockNavigation}
       />,
       {wrapper: TestNavigationProvider}
@@ -84,7 +88,8 @@ describe('<VendorsMapDrawer />', () => {
 
     // Then: The onClose callback should be called with false
     await waitFor(() => {
-      expect(mockOnClose).toHaveBeenCalledWith(false);
+      expect(mockSetCurrentVendor).toHaveBeenCalledWith(undefined);
+      expect(mockSetIsVendorDetailsDisplayed).toHaveBeenCalledWith(false);
     });
   });
 
@@ -97,8 +102,9 @@ describe('<VendorsMapDrawer />', () => {
     render(
       <VendorsMapDrawer
         isOpen={true}
-        onClose={mockOnClose}
+        setIsVendorDetailsDisplayed={mockOnClose}
         vendor={vendor}
+        setCurrentVendor={mockSetCurrentVendor}
         navigation={mockNavigation}
       />,
       {wrapper: TestNavigationProvider}
