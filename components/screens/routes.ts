@@ -1,9 +1,9 @@
 export enum RoutesNames {
-  HOME = 'Home',
-  VENDORS = 'Vendors',
+  MAP = 'Map',
+  VENDOR = 'Vendor',
 }
 
 export type Routes = {
-  [RoutesNames.HOME]: undefined;
-  [RoutesNames.VENDORS]: undefined;
+  [RoutesNames.MAP]: undefined;
+  [RoutesNames.VENDOR]: undefined;
 };

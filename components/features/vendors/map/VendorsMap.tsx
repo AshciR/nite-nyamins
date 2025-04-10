@@ -8,6 +8,7 @@ import {Vendor} from "@/components/features/vendors/models";
 import {VStack} from "@/components/ui/vstack";
 import {Heading} from "@/components/ui/heading";
 import {primary} from "@/color.constants";
+import {RoutesNames} from "@/components/screens/routes";
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapBoxAccessToken || "");
 
@@ -42,9 +43,9 @@ const VendorsMap: React.FC<VendorMapProps> = (
       <Heading
         size="2xl"
         testID={"vendor-map-title"}
-        className={"self-start mb-[2%] pl-[2%]"}
+        className={"self-start mb-[4%] pl-[2%]"}
       >
-        Nyam
+        {RoutesNames.MAP}
       </Heading>
       <MapView
         style={styles.map}
@@ -88,7 +89,7 @@ const VendorsMap: React.FC<VendorMapProps> = (
               circleRadius: 15,
               circleOpacity: 0.5,
               circleStrokeWidth: 2,
-              circleStrokeColor: "black"
+              circleStrokeColor: primary
             }}
           />
 

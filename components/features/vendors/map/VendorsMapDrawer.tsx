@@ -34,7 +34,7 @@ const VendorsMapDrawer: React.FC<VendorDetailsDrawerProps> = (
 
   const handleNavigateToDetails = useCallback(() => {
     onClose(false)
-    navigation.navigate(RoutesNames.VENDORS)
+    navigation.navigate(RoutesNames.VENDOR)
   }, [onClose, navigation])
 
   return (
@@ -49,17 +49,26 @@ const VendorsMapDrawer: React.FC<VendorDetailsDrawerProps> = (
         {vendor ? (
           <>
             <DrawerHeader>
-              <Heading size="3xl">{vendor.name}</Heading>
+              <Heading size="2xl">{vendor.name}</Heading>
               <DrawerCloseButton testID={"drawer-close-button"}/>
             </DrawerHeader>
             <DrawerBody>
               <Text className="font-semibold" size="lg">
-                {`Opening Hours: ${convertIsoTimeToAmOrPm(vendor.openingTime)} - ${convertIsoTimeToAmOrPm(vendor.closingTime)}`}
+                {"Opening Hours:"}
               </Text>
-              <Text className="font-semibold" size="lg">
-                {`Ratings: ${getStarRating(vendor.rating)}`}
+              <Text className="font-semibold text-brand-300" size="lg">
+                {`${convertIsoTimeToAmOrPm(vendor.openingTime)} - ${convertIsoTimeToAmOrPm(vendor.closingTime)}`}
               </Text>
             </DrawerBody>
+            <DrawerFooter className="justify-center">
+              <Button
+                className="w-[90%] mb-10 bg-brand-500"
+                testID={"vendor-map-drawer-details-button"}
+                onPress={handleNavigateToDetails}
+              >
+                <ButtonText>Menu</ButtonText>
+              </Button>
+            </DrawerFooter>
           </>
         ) : (
           <DrawerHeader>
@@ -67,25 +76,9 @@ const VendorsMapDrawer: React.FC<VendorDetailsDrawerProps> = (
             <DrawerCloseButton/>
           </DrawerHeader>
         )}
-        <DrawerFooter className="justify-center">
-          <Button
-            className="w-[90%] mb-10 bg-brand-300"
-            testID={"vendor-map-drawer-details-button"}
-            onPress={handleNavigateToDetails}
-          >
-            <ButtonText>Menu</ButtonText>
-          </Button>
-        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   )
 };
-
-function getStarRating(rating: number) {
-  if (rating < 1 || rating > 5) {
-    throw new Error("Rating must be between 1 and 5");
-  }
-  return "🤤️".repeat(rating);
-}
 
 export default VendorsMapDrawer

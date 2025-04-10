@@ -34,8 +34,8 @@ describe('MainNavigator', () => {
     render(<MainNavigator/>, {wrapper: TestNavigationProvider});
 
     // Then: Expect the HomeScreenDemo screen to be visible (make sure HomeScreenDemo renders identifiable text)
-    const homeScreenText = await screen.findByText('Home');
-    expect(homeScreenText).toBeOnTheScreen();
+    const homeScreenText = await screen.findByTestId('vendor-map-title');
+    expect(homeScreenText).toHaveTextContent("Map");
 
   });
 
@@ -47,7 +47,7 @@ describe('MainNavigator', () => {
     render(<MainNavigator/>, {wrapper: TestNavigationProvider});
 
     // When: The Vendor tab is clicked
-    const vendorTabButtons = await screen.findAllByTestId("vendors-tab-button")
+    const vendorTabButtons = await screen.findAllByTestId("vendor-tab-button")
     await user.press(vendorTabButtons[0]) // Ionicons
 
     // Then: Expect the HomeScreenDemo screen to be visible (make sure HomeScreenDemo renders identifiable text)

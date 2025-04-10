@@ -50,6 +50,7 @@ describe('VendorDetails', () => {
     );
 
     // Then: VendorNameAndOpeningHours should be rendered with correct props
+    expect(screen.getByTestId("vendor-details-title")).toHaveTextContent("Vendor")
     expect(screen.getByTestId("vendor-details-vendor-name")).toHaveTextContent("Test Restaurant")
     expect(screen.getByTestId("vendor-details-vendor-open")).toHaveTextContent("Open")
 

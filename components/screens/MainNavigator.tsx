@@ -16,7 +16,7 @@ const MainNavigator = () => {
           backgroundColor: lightBackground,
         },
         tabBarIcon: ({color, size}) => {
-          const iconName: string = route.name === 'Home' ? 'map' : 'fast-food';
+          const iconName: string = route.name === RoutesNames.MAP ? 'map' : 'fast-food';
           return <Ionicons
             name={iconName}
             size={size}
@@ -28,8 +28,8 @@ const MainNavigator = () => {
         tabBarInactiveTintColor: secondary,
       })}
     >
-      <Tab.Screen name={RoutesNames.HOME} component={HomeScreen}/>
-      <Tab.Screen name={RoutesNames.VENDORS} component={VendorScreen}/>
+      <Tab.Screen name={RoutesNames.MAP} component={HomeScreen}/>
+      <Tab.Screen name={RoutesNames.VENDOR} component={VendorScreen}/>
     </Tab.Navigator>
   );
 };

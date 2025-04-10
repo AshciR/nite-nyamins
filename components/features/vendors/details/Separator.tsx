@@ -3,7 +3,7 @@ import {StyleSheet} from "react-native";
 
 const Separator = () => {
   return (
-    <Box style={styles.horizontalLine}/>
+    <Box className="h-px w-full bg-secondary-50"/>
   )
 }
 
