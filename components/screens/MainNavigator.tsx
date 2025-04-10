@@ -1,7 +1,7 @@
 import {Routes, RoutesNames} from "@/components/screens/routes";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Ionicons} from '@expo/vector-icons';
-import HomeScreen from "@/components/screens/HomeScreen";
+import MapScreen from "@/components/screens/MapScreen";
 import VendorScreen from "@/components/screens/VendorScreen";
 import {lightBackground, primary, secondary} from "@/color.constants";
 
@@ -28,7 +28,7 @@ const MainNavigator = () => {
         tabBarInactiveTintColor: secondary,
       })}
     >
-      <Tab.Screen name={RoutesNames.MAP} component={HomeScreen}/>
+      <Tab.Screen name={RoutesNames.MAP} component={MapScreen}/>
       <Tab.Screen name={RoutesNames.VENDOR} component={VendorScreen}/>
     </Tab.Navigator>
   );

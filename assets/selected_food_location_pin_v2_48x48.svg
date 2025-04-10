@@ -5,6 +5,6 @@
     <!-- Map Pin Shape -->
     <path 
         d="M50 5C30 5 10 23 10 45C10 70 50 95 50 95C50 95 90 70 90 45C90 23 70 5 50 5Z" 
-        fill="#5a9f61" stroke="#516352" stroke-width="4"/>
+        fill="#FFFFFF" stroke="#5A9F61" stroke-width="4"/>
 </svg>
 

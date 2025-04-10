@@ -18,29 +18,36 @@ import {Routes, RoutesNames} from "@/components/screens/routes";
 
 type VendorDetailsDrawerProps = {
   isOpen: boolean
-  onClose: Dispatch<SetStateAction<boolean>>
+  setIsVendorDetailsDisplayed: Dispatch<SetStateAction<boolean>>
   vendor?: Vendor
+  setCurrentVendor: Dispatch<SetStateAction<Vendor |undefined>>
   navigation: typeof useNavigation<NavigationProp<Routes>>
 }
 
 const VendorsMapDrawer: React.FC<VendorDetailsDrawerProps> = (
   {
     isOpen,
-    onClose,
+    setIsVendorDetailsDisplayed,
     vendor,
+    setCurrentVendor,
     navigation
   }
 ) => {
 
-  const handleNavigateToDetails = useCallback(() => {
-    onClose(false)
+  const handleNavigateToDetails = () => {
+    setIsVendorDetailsDisplayed(false)
     navigation.navigate(RoutesNames.VENDOR)
-  }, [onClose, navigation])
+  }
+
+  const handleOnCloseDrawer = () => {
+    setCurrentVendor(undefined)
+    setIsVendorDetailsDisplayed(false)
+  }
 
   return (
     <Drawer
       isOpen={isOpen}
-      onClose={() => onClose(false)}
+      onClose={handleOnCloseDrawer}
       size="sm"
       anchor="bottom"
     >

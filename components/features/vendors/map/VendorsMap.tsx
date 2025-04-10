@@ -1,8 +1,9 @@
-import React, {Dispatch, SetStateAction, useCallback, useEffect} from "react";
+import React, {Dispatch, SetStateAction, useEffect} from "react";
 import {StyleSheet} from "react-native";
 import Mapbox, {Camera, CircleLayer, Images, LocationPuck, MapView, ShapeSource, SymbolLayer} from "@rnmapbox/maps";
 import Constants from "expo-constants"
 import pin from "@/assets/food_location_pin_v2_48x48.png"
+import selectedPin from "@/assets/selected_food_location_pin_v2_48x48.png"
 import {FeatureCollection, GeoJsonObject} from "geojson";
 import {Vendor} from "@/components/features/vendors/models";
 import {VStack} from "@/components/ui/vstack";
@@ -14,13 +15,15 @@ Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapBoxAccessToken || "");
 
 type VendorMapProps = {
   vendorLocations: FeatureCollection<GeoJsonObject, Vendor> | undefined
-  setCurrentVendor: Dispatch<SetStateAction<Vendor |undefined>>
+  vendor?: Vendor
+  setCurrentVendor: Dispatch<SetStateAction<Vendor | undefined>>
   setIsVendorDetailsDisplayed: Dispatch<SetStateAction<boolean>>
 }
 
 const VendorsMap: React.FC<VendorMapProps> = (
   {
     vendorLocations,
+    vendor,
     setCurrentVendor,
     setIsVendorDetailsDisplayed
   }
@@ -29,12 +32,12 @@ const VendorsMap: React.FC<VendorMapProps> = (
     Mapbox.setTelemetryEnabled(false);
   }, []); // Empty dependency array ensures this runs once when the component mounts
 
-  const handleVendorPress = useCallback((event) => {
+  const handleVendorPress = (event) => {
     console.log(JSON.stringify(event, null, 2))
     const selectedVendor = findVendorByEvent(event, vendorLocations)
     setCurrentVendor(selectedVendor)
     setIsVendorDetailsDisplayed(!!selectedVendor)
-  }, [vendorLocations])
+  }
 
   return (
     <VStack
@@ -72,7 +75,7 @@ const VendorsMap: React.FC<VendorMapProps> = (
         >
           <SymbolLayer
             id="vendor-clusters-count"
-            filter={["has", "cluster"]}
+            filter={filterHasCluster()}
             style={{
               textField: ["get", "point_count_abbreviated"],
               textColor: "black",
@@ -83,7 +86,7 @@ const VendorsMap: React.FC<VendorMapProps> = (
 
           <CircleLayer
             id="vendor-clusters"
-            filter={["has", "cluster"]}
+            filter={filterHasCluster()}
             style={{
               circleColor: primary,
               circleRadius: 15,
@@ -96,9 +99,21 @@ const VendorsMap: React.FC<VendorMapProps> = (
           <Images images={{pin}}/>
           <SymbolLayer
             id="vendor-icons"
-            filter={["!", ["has", "cluster"]]}
+            filter={filterUnselectedVendorLayer(vendor)}
             style={{
               iconImage: "pin",
+              iconSize: 0.75,
+              iconAllowOverlap: true,
+              iconAnchor: "bottom"
+            }}
+          />
+
+          <Images images={{selectedPin}}/>
+          <SymbolLayer
+            id="selected-vendor-icon"
+            filter={filterSelectedVendorLayer(vendor)}
+            style={{
+              iconImage: "selectedPin",
               iconSize: 0.75,
               iconAllowOverlap: true,
               iconAnchor: "bottom"
@@ -110,6 +125,24 @@ const VendorsMap: React.FC<VendorMapProps> = (
     </VStack>
   );
 };
+
+export function filterSelectedVendorLayer(vendor: Vendor) {
+  return ["all",
+    ["!", filterHasCluster()],
+    ["==", ["get", "id"], `${vendor?.id}`]
+  ];
+}
+
+export function filterUnselectedVendorLayer(vendor: Vendor) {
+  return ["all",
+    ["!", filterHasCluster()],
+    ["!=", ["get", "id"], `${vendor?.id}`]
+  ];
+}
+
+export function filterHasCluster() {
+  return ["has", "cluster"];
+}
 
 /**
  * Finds the vendor from vendorLocations that matches the id provided in the event.
@@ -144,8 +177,8 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
     width: '100%',
-    borderWidth:0.5,
-    borderColor:"#b3b3b3"
+    borderWidth: 0.5,
+    borderColor: "#b3b3b3"
   },
 });
 
