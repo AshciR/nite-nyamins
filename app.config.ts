@@ -1,4 +1,4 @@
-import { ExpoConfig} from 'expo/config';
+import {ExpoConfig} from 'expo/config';
 
 export default (): ExpoConfig => {
 
@@ -15,7 +15,7 @@ export default (): ExpoConfig => {
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "plugins":[
+    "plugins": [
       [
         "@rnmapbox/maps",
         {
@@ -30,11 +30,14 @@ export default (): ExpoConfig => {
       ]
     ],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "io.ashcir-nite-nyamins",
       "config": {
-        "googleMapsApiKey": process.env.GOOGLE_MAPS_API_KEY
+      },
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
       }
+
     },
     "android": {
       "adaptiveIcon": {
@@ -47,7 +50,11 @@ export default (): ExpoConfig => {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "mapBoxAccessToken": process.env.MAPBOX_ACCESS_TOKEN
+      "mapBoxAccessToken": process.env.MAPBOX_ACCESS_TOKEN,
+      "eas": {
+        "projectId": "db8a975a-e869-4c66-835d-d934a4a2a605"
+      }
+
     }
   }
 
