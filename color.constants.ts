@@ -15,3 +15,4 @@ export const brand900: string = "#434143";   // Deep contrast elements, borders 
 export const primary: string = brand400;   // Primary color (from brand400)
 export const secondary: string = brand700; // Secondary color (from brand700)
 export const lightBackground: string = "#F6F6F6"; // Light background color
+export const accent: string = "#F4C842"

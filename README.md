@@ -43,10 +43,17 @@ Follow the instructions [here](https://docs.expo.dev/get-started/set-up-your-env
 2. Start the application
    `yarn run android`
 
-### Checking the app configs
+## Building on Expo Application Services (EAS)
+Building the app on EAS
+`eas build --platform <ios|android>`
+
+After building, you can submit the artifact to App Store Connect or the Google Play Store Console
+`eas submit --platform <ios|android>`
+
+## Checking the app configs
 Running `npx expo config` will display the final configuration that will be used in Expo CLI after resolution has occurred.
 
-### Troubleshooting
+## Troubleshooting
 1. If the styling for elements are missing, try clearing the cache by 
 `expo start --clear`
 
