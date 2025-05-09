@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useEffect} from "react";
+import React, {Dispatch, SetStateAction, useEffect, useRef, useState} from "react";
 import {StyleSheet} from "react-native";
 import Mapbox, {Camera, CircleLayer, Images, LocationPuck, MapView, ShapeSource, SymbolLayer} from "@rnmapbox/maps";
 import Constants from "expo-constants"
@@ -28,12 +28,32 @@ const VendorsMap: React.FC<VendorMapProps> = (
     setIsVendorDetailsDisplayed
   }
 ) => {
+
+  const DEFAULT_CAMERA_ZOOM = 13
+  const MAX_CAMERA_ZOOM = 18
+  const [cameraZoom, setCameraZoom] = useState<number>(DEFAULT_CAMERA_ZOOM)
+  const cameraRef = useRef<Camera>(null);
+
   useEffect(() => {
     Mapbox.setTelemetryEnabled(false);
   }, []); // Empty dependency array ensures this runs once when the component mounts
 
+  useEffect(() => {
+
+    console.debug("Zoom level", cameraZoom)
+    if (!cameraRef.current) return;
+
+    cameraRef.current.setCamera({
+      zoomLevel: cameraZoom,
+      animationMode: 'easeTo',
+      animationDuration: 1000, // ms
+    });
+  }, [cameraZoom]);
+
   const handleVendorPress = (event) => {
     console.log(JSON.stringify(event, null, 2))
+    // TODO: Check if it's a cluster, if it's cluster zoom in
+    setCameraZoom((currentZoom) => (currentZoom < MAX_CAMERA_ZOOM) ? currentZoom + 1 : MAX_CAMERA_ZOOM );
     const selectedVendor = findVendorByEvent(event, vendorLocations)
     setCurrentVendor(selectedVendor)
     setIsVendorDetailsDisplayed(!!selectedVendor)
@@ -59,11 +79,14 @@ const VendorsMap: React.FC<VendorMapProps> = (
         testID="vendor-map"
       >
         <Camera
-          defaultSettings={{
-            zoomLevel: 16
-          }}
-          followUserLocation={true}
-          followZoomLevel={16}
+          // defaultSettings={{
+          //   zoomLevel: DEFAULT_CAMERA_ZOOM
+          // }}
+          ref={cameraRef}
+          maxZoomLevel={MAX_CAMERA_ZOOM}
+          // zoomLevel={cameraZoom}
+          followUserLocation={false}
+          // followZoomLevel={cameraZoom}
         />
         <LocationPuck puckBearingEnabled puckBearing="heading" pulsing={{isEnabled: true}}/>
 
