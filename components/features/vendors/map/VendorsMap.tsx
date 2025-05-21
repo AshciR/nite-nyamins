@@ -4,7 +4,7 @@ import Mapbox, {Camera, CircleLayer, Images, LocationPuck, MapView, ShapeSource,
 import Constants from "expo-constants"
 import pin from "@/assets/food_location_pin_v2_48x48.png"
 import selectedPin from "@/assets/selected_food_location_pin_v2_48x48.png"
-import {FeatureCollection, GeoJsonObject} from "geojson";
+import {Feature, FeatureCollection, GeoJsonObject, GeoJsonProperties} from "geojson";
 import {Vendor} from "@/components/features/vendors/models";
 import {VStack} from "@/components/ui/vstack";
 import {Heading} from "@/components/ui/heading";
@@ -32,32 +32,55 @@ const VendorsMap: React.FC<VendorMapProps> = (
   const DEFAULT_CAMERA_ZOOM = 13
   const MAX_CAMERA_ZOOM = 18
   const [cameraZoom, setCameraZoom] = useState<number>(DEFAULT_CAMERA_ZOOM)
+  const [isClusterZooming, setIsClusterZooming] = useState(false)
   const cameraRef = useRef<Camera>(null);
 
-  useEffect(() => {
-    Mapbox.setTelemetryEnabled(false);
-  }, []); // Empty dependency array ensures this runs once when the component mounts
+  const handleCameraChange = (change: { properties: { center: number[]; zoom: number } }) => {
+    if (!isClusterZooming && change.properties.zoom) {
+      setCameraZoom(change.properties.zoom);
+    }
+  };
+
+  const handleVendorPress = (event: any) => {
+    console.log(JSON.stringify(event, null, 2))
+    
+    const feature = event.features[0];
+    if (feature?.properties?.cluster) {
+      // Only zoom in if it's a cluster
+      handleClusterZoom(cameraZoom);
+      return;
+    }
+
+    // If it's not a cluster, handle vendor selection
+    const selectedVendor = findVendorByEvent(event, vendorLocations)
+    setCurrentVendor(selectedVendor)
+    setIsVendorDetailsDisplayed(!!selectedVendor)
+  };
+
+  const handleClusterZoom = (currentZoom: number) => {
+    const newZoom = Math.min(currentZoom + 1, MAX_CAMERA_ZOOM);
+    setIsClusterZooming(true);
+    setCameraZoom(newZoom);
+    
+    // Reset the cluster zooming flag after animation completes
+    setTimeout(() => {
+      setIsClusterZooming(false);
+    }, 1000); // Match the animation duration
+  };
 
   useEffect(() => {
-
-    console.debug("Zoom level", cameraZoom)
-    if (!cameraRef.current) return;
+    if (!cameraRef.current || !isClusterZooming) return;
 
     cameraRef.current.setCamera({
       zoomLevel: cameraZoom,
       animationMode: 'easeTo',
       animationDuration: 1000, // ms
     });
-  }, [cameraZoom]);
+  }, [cameraZoom, isClusterZooming]);
 
-  const handleVendorPress = (event) => {
-    console.log(JSON.stringify(event, null, 2))
-    // TODO: Check if it's a cluster, if it's cluster zoom in
-    setCameraZoom((currentZoom) => (currentZoom < MAX_CAMERA_ZOOM) ? currentZoom + 1 : MAX_CAMERA_ZOOM );
-    const selectedVendor = findVendorByEvent(event, vendorLocations)
-    setCurrentVendor(selectedVendor)
-    setIsVendorDetailsDisplayed(!!selectedVendor)
-  }
+  useEffect(() => {
+    Mapbox.setTelemetryEnabled(false);
+  }, []);
 
   return (
     <VStack
@@ -77,16 +100,13 @@ const VendorsMap: React.FC<VendorMapProps> = (
         compassEnabled={false}
         scaleBarEnabled={false}
         testID="vendor-map"
+        onCameraChanged={handleCameraChange}
       >
         <Camera
-          // defaultSettings={{
-          //   zoomLevel: DEFAULT_CAMERA_ZOOM
-          // }}
           ref={cameraRef}
           maxZoomLevel={MAX_CAMERA_ZOOM}
-          // zoomLevel={cameraZoom}
+          zoomLevel={DEFAULT_CAMERA_ZOOM}
           followUserLocation={false}
-          // followZoomLevel={cameraZoom}
         />
         <LocationPuck puckBearingEnabled puckBearing="heading" pulsing={{isEnabled: true}}/>
 

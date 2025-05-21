@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+This project uses the React Native MapBox package for displaying maps. The documentation for RNMapbox is found here: https://rnmapbox.github.io/docs/examples.
