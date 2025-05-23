@@ -194,7 +194,7 @@ export function filterHasCluster() {
  * @param vendorLocations - A FeatureCollection of vendors.
  * @returns The Vendor object if found, otherwise undefined.
  */
-function findVendorByEvent(
+export function findVendorByEvent(
   event: any,
   vendorLocations: FeatureCollection<GeoJsonObject, Vendor>
 ): Vendor | undefined {
