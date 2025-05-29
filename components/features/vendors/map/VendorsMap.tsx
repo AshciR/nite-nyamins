@@ -29,7 +29,7 @@ const VendorsMap: React.FC<VendorMapProps> = (
   }
 ) => {
 
-  const DEFAULT_CAMERA_ZOOM = 13
+  const DEFAULT_CAMERA_ZOOM = 7
   const MAX_CAMERA_ZOOM = 18
   const [cameraZoom, setCameraZoom] = useState<number>(DEFAULT_CAMERA_ZOOM)
   const [isClusterZooming, setIsClusterZooming] = useState(false)
@@ -37,6 +37,7 @@ const VendorsMap: React.FC<VendorMapProps> = (
 
   const handleCameraChange = (change: { properties: { center: number[]; zoom: number } }) => {
     if (!isClusterZooming && change.properties.zoom) {
+      console.log("handleCameraChange", change.properties.zoom)
       setCameraZoom(change.properties.zoom);
     }
   };
@@ -105,8 +106,9 @@ const VendorsMap: React.FC<VendorMapProps> = (
       >
         <Camera
           ref={cameraRef}
-          maxZoomLevel={MAX_CAMERA_ZOOM}
-          zoomLevel={DEFAULT_CAMERA_ZOOM}
+          defaultSettings={{
+            zoomLevel: DEFAULT_CAMERA_ZOOM,
+          }}
           followUserLocation={false}
         />
         <LocationPuck puckBearingEnabled puckBearing="heading" pulsing={{isEnabled: true}}/>
