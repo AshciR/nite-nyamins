@@ -47,6 +47,7 @@ const VendorsMap: React.FC<VendorMapProps> = (
     const feature = event.features[0];
     if (feature?.properties?.cluster) {
       // Only zoom in if it's a cluster
+      console.log("handleVendorPress", cameraZoom)
       handleClusterZoom(cameraZoom);
       return;
     }
@@ -61,7 +62,7 @@ const VendorsMap: React.FC<VendorMapProps> = (
     const newZoom = Math.min(currentZoom + 1, MAX_CAMERA_ZOOM);
     setIsClusterZooming(true);
     setCameraZoom(newZoom);
-    
+    console.log("handleClusterZoom", newZoom)
     // Reset the cluster zooming flag after animation completes
     setTimeout(() => {
       setIsClusterZooming(false);
