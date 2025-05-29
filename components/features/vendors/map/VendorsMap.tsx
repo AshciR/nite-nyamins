@@ -32,6 +32,7 @@ const VendorsMap: React.FC<VendorMapProps> = (
   const DEFAULT_CAMERA_ZOOM = 7
   const MAX_CAMERA_ZOOM = 18
   const [cameraZoom, setCameraZoom] = useState<number>(DEFAULT_CAMERA_ZOOM)
+  const [coordinates, setCoordinates] = useState<[number, number]>([0, 0])
   const [isClusterZooming, setIsClusterZooming] = useState(false)
   const cameraRef = useRef<Camera>(null);
 
@@ -49,7 +50,9 @@ const VendorsMap: React.FC<VendorMapProps> = (
     if (feature?.properties?.cluster) {
       // Only zoom in if it's a cluster
       console.log("handleVendorPress", cameraZoom)
-      handleClusterZoom(cameraZoom);
+      const coordinates = feature.geometry.coordinates;
+      console.log("handleVendorPress coordinates", coordinates)
+      handleClusterZoom(cameraZoom, coordinates);
       return;
     }
 
@@ -59,26 +62,33 @@ const VendorsMap: React.FC<VendorMapProps> = (
     setIsVendorDetailsDisplayed(!!selectedVendor)
   };
 
-  const handleClusterZoom = (currentZoom: number) => {
+  const handleClusterZoom = (currentZoom: number, coordinates: [number, number]) => {
     const newZoom = Math.min(currentZoom + 1, MAX_CAMERA_ZOOM);
     setIsClusterZooming(true);
+    
     setCameraZoom(newZoom);
-    console.log("handleClusterZoom", newZoom)
+    console.log("handleClusterZoom - zoom", newZoom)
+    
+    setCoordinates(coordinates)
+    console.log("handleClusterZoom - coordinates", coordinates)
+    
     // Reset the cluster zooming flag after animation completes
     setTimeout(() => {
       setIsClusterZooming(false);
     }, 1000); // Match the animation duration
   };
 
+  // This is used to zoom the map to the cluster when a cluster is pressed
   useEffect(() => {
     if (!cameraRef.current || !isClusterZooming) return;
 
     cameraRef.current.setCamera({
       zoomLevel: cameraZoom,
       animationMode: 'easeTo',
+      centerCoordinate: coordinates,
       animationDuration: 1000, // ms
     });
-  }, [cameraZoom, isClusterZooming]);
+  }, [cameraZoom, isClusterZooming, coordinates]);
 
   useEffect(() => {
     Mapbox.setTelemetryEnabled(false);
