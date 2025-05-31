@@ -1,10 +1,18 @@
 import React, {Dispatch, SetStateAction, useEffect, useRef, useState} from "react";
 import {StyleSheet} from "react-native";
-import Mapbox, {Camera, CircleLayer, Images, LocationPuck, MapView, ShapeSource, SymbolLayer} from "@rnmapbox/maps";
+import Mapbox, {
+  Camera, 
+  CircleLayer, 
+  Images, 
+  LocationPuck, 
+  MapView, 
+  ShapeSource, 
+  SymbolLayer
+} from "@rnmapbox/maps";
 import Constants from "expo-constants"
 import pin from "@/assets/food_location_pin_v2_48x48.png"
 import selectedPin from "@/assets/selected_food_location_pin_v2_48x48.png"
-import {Feature, FeatureCollection, GeoJsonObject, GeoJsonProperties} from "geojson";
+import {Feature, FeatureCollection, GeoJsonObject, GeoJsonProperties, Point} from "geojson";
 import {Vendor} from "@/components/features/vendors/models";
 import {VStack} from "@/components/ui/vstack";
 import {Heading} from "@/components/ui/heading";
@@ -23,6 +31,14 @@ type VendorMapProps = {
 interface MapCameraState {
   zoom: number;
   coordinates: [number, number];
+}
+
+interface ClusterFeature extends Feature<Point> {
+  properties: {
+    cluster: boolean;
+    point_count: number;
+    point_count_abbreviated: string;
+  }
 }
 
 const VendorsMap: React.FC<VendorMapProps> = (
@@ -58,9 +74,9 @@ const VendorsMap: React.FC<VendorMapProps> = (
     const feature = event.features[0];
     
     // Only zoom in if it's a cluster
-    if (feature?.properties?.cluster) {
+    if (isClusterFeature(feature)) {
       console.log("handleVendorPress zoom", mapCamera.zoom)
-      const coordinates = feature.geometry.coordinates;
+      const coordinates = feature.geometry.coordinates as [number, number];
       console.log("handleVendorPress coordinates", coordinates)
       handleClusterZoom(mapCamera.zoom, coordinates);
       return;
@@ -238,6 +254,10 @@ export function findVendorByEvent(
 
   // Return the vendor properties if found
   return matchedFeature ? matchedFeature.properties : undefined;
+}
+
+export function isClusterFeature(feature: Feature<any>): feature is ClusterFeature {
+  return feature?.properties?.cluster === true;
 }
 
 const styles = StyleSheet.create({
