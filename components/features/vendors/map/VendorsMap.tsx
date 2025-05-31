@@ -20,6 +20,11 @@ type VendorMapProps = {
   setIsVendorDetailsDisplayed: Dispatch<SetStateAction<boolean>>
 }
 
+interface MapCameraState {
+  zoom: number;
+  coordinates: [number, number];
+}
+
 const VendorsMap: React.FC<VendorMapProps> = (
   {
     vendorLocations,
@@ -28,18 +33,22 @@ const VendorsMap: React.FC<VendorMapProps> = (
     setIsVendorDetailsDisplayed
   }
 ) => {
-
   const DEFAULT_CAMERA_ZOOM = 7
   const MAX_CAMERA_ZOOM = 18
-  const [cameraZoom, setCameraZoom] = useState<number>(DEFAULT_CAMERA_ZOOM)
-  const [coordinates, setCoordinates] = useState<[number, number]>([0, 0])
+  const [mapCamera, setMapCamera] = useState<MapCameraState>({
+    zoom: DEFAULT_CAMERA_ZOOM,
+    coordinates: [0, 0]
+  })
   const [isClusterZooming, setIsClusterZooming] = useState(false)
   const cameraRef = useRef<Camera>(null);
 
   const handleCameraChange = (change: { properties: { center: number[]; zoom: number } }) => {
     if (!isClusterZooming && change.properties.zoom) {
       console.log("handleCameraChange", change.properties.zoom)
-      setCameraZoom(change.properties.zoom);
+      setMapCamera(prev => ({
+        ...prev,
+        zoom: change.properties.zoom
+      }));
     }
   };
 
@@ -47,12 +56,13 @@ const VendorsMap: React.FC<VendorMapProps> = (
     console.log(JSON.stringify(event, null, 2))
     
     const feature = event.features[0];
+    
+    // Only zoom in if it's a cluster
     if (feature?.properties?.cluster) {
-      // Only zoom in if it's a cluster
-      console.log("handleVendorPress", cameraZoom)
+      console.log("handleVendorPress zoom", mapCamera.zoom)
       const coordinates = feature.geometry.coordinates;
       console.log("handleVendorPress coordinates", coordinates)
-      handleClusterZoom(cameraZoom, coordinates);
+      handleClusterZoom(mapCamera.zoom, coordinates);
       return;
     }
 
@@ -62,15 +72,17 @@ const VendorsMap: React.FC<VendorMapProps> = (
     setIsVendorDetailsDisplayed(!!selectedVendor)
   };
 
-  const handleClusterZoom = (currentZoom: number, coordinates: [number, number]) => {
+  const handleClusterZoom = (currentZoom: number, clusterCoordinates: [number, number]) => {
     const newZoom = Math.min(currentZoom + 1, MAX_CAMERA_ZOOM);
     setIsClusterZooming(true);
     
-    setCameraZoom(newZoom);
-    console.log("handleClusterZoom - zoom", newZoom)
+    setMapCamera({
+      zoom: newZoom,
+      coordinates: clusterCoordinates
+    });
     
-    setCoordinates(coordinates)
-    console.log("handleClusterZoom - coordinates", coordinates)
+    console.log("handleClusterZoom - zoom", newZoom)
+    console.log("handleClusterZoom - coordinates", clusterCoordinates)
     
     // Reset the cluster zooming flag after animation completes
     setTimeout(() => {
@@ -83,12 +95,12 @@ const VendorsMap: React.FC<VendorMapProps> = (
     if (!cameraRef.current || !isClusterZooming) return;
 
     cameraRef.current.setCamera({
-      zoomLevel: cameraZoom,
+      zoomLevel: mapCamera.zoom,
       animationMode: 'easeTo',
-      centerCoordinate: coordinates,
+      centerCoordinate: mapCamera.coordinates,
       animationDuration: 1000, // ms
     });
-  }, [cameraZoom, isClusterZooming, coordinates]);
+  }, [mapCamera, isClusterZooming]);
 
   useEffect(() => {
     Mapbox.setTelemetryEnabled(false);
