@@ -1,10 +1,18 @@
-import React, {Dispatch, SetStateAction, useEffect} from "react";
+import React, {Dispatch, SetStateAction, useEffect, useRef, useState} from "react";
 import {StyleSheet} from "react-native";
-import Mapbox, {Camera, CircleLayer, Images, LocationPuck, MapView, ShapeSource, SymbolLayer} from "@rnmapbox/maps";
+import Mapbox, {
+  Camera, 
+  CircleLayer, 
+  Images, 
+  LocationPuck, 
+  MapView, 
+  ShapeSource, 
+  SymbolLayer
+} from "@rnmapbox/maps";
 import Constants from "expo-constants"
 import pin from "@/assets/food_location_pin_v2_48x48.png"
 import selectedPin from "@/assets/selected_food_location_pin_v2_48x48.png"
-import {FeatureCollection, GeoJsonObject} from "geojson";
+import {Feature, FeatureCollection, GeoJsonObject, GeoJsonProperties, Point} from "geojson";
 import {Vendor} from "@/components/features/vendors/models";
 import {VStack} from "@/components/ui/vstack";
 import {Heading} from "@/components/ui/heading";
@@ -20,6 +28,19 @@ type VendorMapProps = {
   setIsVendorDetailsDisplayed: Dispatch<SetStateAction<boolean>>
 }
 
+interface MapCameraState {
+  zoom: number;
+  coordinates: [number, number];
+}
+
+interface ClusterFeature extends Feature<Point> {
+  properties: {
+    cluster: boolean;
+    point_count: number;
+    point_count_abbreviated: string;
+  }
+}
+
 const VendorsMap: React.FC<VendorMapProps> = (
   {
     vendorLocations,
@@ -28,16 +49,91 @@ const VendorsMap: React.FC<VendorMapProps> = (
     setIsVendorDetailsDisplayed
   }
 ) => {
-  useEffect(() => {
-    Mapbox.setTelemetryEnabled(false);
-  }, []); // Empty dependency array ensures this runs once when the component mounts
+  const DEFAULT_CAMERA_ZOOM = 7
+  const MAX_CAMERA_ZOOM = 18
+  const [mapCamera, setMapCamera] = useState<MapCameraState>({
+    zoom: DEFAULT_CAMERA_ZOOM,
+    coordinates: [0, 0]
+  })
+  const [isClusterZooming, setIsClusterZooming] = useState(false)
+  const cameraRef = useRef<Camera>(null);
 
-  const handleVendorPress = (event) => {
+  /**
+   * Handles camera changes in the map view
+   * @param change - The camera change event containing center and zoom properties
+   */
+  const handleCameraChange = (change: { properties: { center: number[]; zoom: number } }) => {
+    if (!isClusterZooming && change.properties.zoom) {
+      console.log("handleCameraChange", change.properties.zoom)
+      setMapCamera(prev => ({
+        ...prev,
+        zoom: change.properties.zoom
+      }));
+    }
+  };
+
+  /**
+   * Handles press events on vendors or clusters on the map
+   * @param event - The press event containing features and coordinates
+   */
+  const handleVendorPress = (event: any) => {
     console.log(JSON.stringify(event, null, 2))
+    
+    const feature = event.features[0];
+    
+    // Only zoom in if it's a cluster
+    if (isClusterFeature(feature)) {
+      console.log("handleVendorPress zoom", mapCamera.zoom)
+      const coordinates = feature.geometry.coordinates as [number, number];
+      console.log("handleVendorPress coordinates", coordinates)
+      handleClusterZoom(mapCamera.zoom, coordinates);
+      return;
+    }
+
+    // If it's not a cluster, handle vendor selection
     const selectedVendor = findVendorByEvent(event, vendorLocations)
     setCurrentVendor(selectedVendor)
     setIsVendorDetailsDisplayed(!!selectedVendor)
-  }
+  };
+
+  /**
+   * Handles zooming to a cluster when it is clicked
+   * @param currentZoom - The current zoom level of the map
+   * @param clusterCoordinates - The coordinates of the cluster to zoom to
+   */
+  const handleClusterZoom = (currentZoom: number, clusterCoordinates: [number, number]) => {
+    const newZoom = Math.min(currentZoom + 1, MAX_CAMERA_ZOOM);
+    setIsClusterZooming(true);
+    
+    setMapCamera({
+      zoom: newZoom,
+      coordinates: clusterCoordinates
+    });
+    
+    console.log("handleClusterZoom - zoom", newZoom)
+    console.log("handleClusterZoom - coordinates", clusterCoordinates)
+    
+    // Reset the cluster zooming flag after animation completes
+    setTimeout(() => {
+      setIsClusterZooming(false);
+    }, 1000); // Match the animation duration
+  };
+
+  // This is used to zoom the map to the cluster when a cluster is pressed
+  useEffect(() => {
+    if (!cameraRef.current || !isClusterZooming) return;
+
+    cameraRef.current.setCamera({
+      zoomLevel: mapCamera.zoom,
+      animationMode: 'easeTo',
+      centerCoordinate: mapCamera.coordinates,
+      animationDuration: 1000, // ms
+    });
+  }, [mapCamera, isClusterZooming]);
+
+  useEffect(() => {
+    Mapbox.setTelemetryEnabled(false);
+  }, []);
 
   return (
     <VStack
@@ -57,13 +153,14 @@ const VendorsMap: React.FC<VendorMapProps> = (
         compassEnabled={false}
         scaleBarEnabled={false}
         testID="vendor-map"
+        onCameraChanged={handleCameraChange}
       >
         <Camera
+          ref={cameraRef}
           defaultSettings={{
-            zoomLevel: 16
+            zoomLevel: DEFAULT_CAMERA_ZOOM,
           }}
-          followUserLocation={true}
-          followZoomLevel={16}
+          followUserLocation={false}
         />
         <LocationPuck puckBearingEnabled puckBearing="heading" pulsing={{isEnabled: true}}/>
 
@@ -126,6 +223,20 @@ const VendorsMap: React.FC<VendorMapProps> = (
   );
 };
 
+/**
+ * Type guard to check if a feature is a cluster
+ * @param feature - The feature to check
+ * @returns True if the feature is a cluster, false otherwise
+ */
+export function isClusterFeature(feature: Feature<any>): feature is ClusterFeature {
+  return feature?.properties?.cluster === true;
+}
+
+/**
+ * Filters map features to show only selected vendor
+ * @param vendor - The currently selected vendor
+ * @returns A MapBox expression to filter for the selected vendor
+ */
 export function filterSelectedVendorLayer(vendor: Vendor) {
   return ["all",
     ["!", filterHasCluster()],
@@ -133,6 +244,11 @@ export function filterSelectedVendorLayer(vendor: Vendor) {
   ];
 }
 
+/**
+ * Filters map features to show unselected vendors
+ * @param vendor - The currently selected vendor to exclude
+ * @returns A MapBox expression to filter for unselected vendors
+ */
 export function filterUnselectedVendorLayer(vendor: Vendor) {
   return ["all",
     ["!", filterHasCluster()],
@@ -140,18 +256,21 @@ export function filterUnselectedVendorLayer(vendor: Vendor) {
   ];
 }
 
+/**
+ * Creates a filter expression to check for cluster features
+ * @returns A MapBox expression to filter for clusters
+ */
 export function filterHasCluster() {
   return ["has", "cluster"];
 }
 
 /**
- * Finds the vendor from vendorLocations that matches the id provided in the event.
- *
- * @param event - The event object containing vendor feature details.
- * @param vendorLocations - A FeatureCollection of vendors.
- * @returns The Vendor object if found, otherwise undefined.
+ * Finds a vendor from the vendor locations that matches the event
+ * @param event - The map press event containing feature information
+ * @param vendorLocations - Collection of all vendor locations
+ * @returns The matching vendor or undefined if not found
  */
-function findVendorByEvent(
+export function findVendorByEvent(
   event: any,
   vendorLocations: FeatureCollection<GeoJsonObject, Vendor>
 ): Vendor | undefined {

@@ -7,7 +7,7 @@
     "test": "jest --watchAll",
     "test:ci": "jest",
     "android": "DARK_MODE=media expo run:android",
-    "ios": "DARK_MODE=media expo run:ios",
+    "ios": "NODE_OPTIONS=--max-old-space-size=4096 DARK_MODE=media expo run:ios",
     "android:prebuild": "expo prebuild --platform android --clean",
     "ios:prebuild": "expo prebuild --platform ios --clean",
     "web": "DARK_MODE=media expo start --web",

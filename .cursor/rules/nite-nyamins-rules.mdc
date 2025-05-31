@@ -1,0 +1,31 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+## UI Components
+This project uses @gluestack components as atomic components to build custom components. 
+Default to using Gluestack components, but if it is not possible or unfeasible, create components using regular React Native.
+
+## Testing
+Favor using React functional components, and write components that are unit-testable
+
+This project uses @testing-library/react-native and Jest.
+When writing tests use the BDD pattern to describe what the tests does. Use comments such as.
+```
+// Given: I have 2 numbers
+const a = 1
+const b = 2
+
+// When: I add them
+const ans = sum(a, b)
+
+// Then: the sum should be correct
+expect(ans).toBeEqual(3)
+```
+
+## Addtional Packages
+This project uses the React Native MapBox package for displaying maps. When using RNMapBox, consult the documentation to ensure we're using correct syntax.
+
+## Documentation
+Add Typescript documentation to all important functions 

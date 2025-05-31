@@ -1,10 +1,11 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react-native';
+import {act, fireEvent, render, screen} from '@testing-library/react-native';
 import {convertVendorJsonToPointFeature} from "@/components/features/vendors/vendorService";
 import VendorsMap, {
   filterHasCluster,
   filterSelectedVendorLayer,
-  filterUnselectedVendorLayer
+  filterUnselectedVendorLayer,
+  isClusterFeature
 } from "@/components/features/vendors/map/VendorsMap";
 import {Feature, Point} from "geojson";
 import {Vendor} from "@/components/features/vendors/models";
@@ -107,5 +108,94 @@ describe('MapBox Filter Functions', () => {
       ]);
     });
 
+  });
+});
+
+describe('Cluster Functionality', () => {
+  // Given: A mock cluster feature
+  const mockClusterFeature: Feature<Point> = {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [-76.812076, 18.035770]
+    },
+    properties: {
+      cluster: true,
+      point_count: 3,
+      point_count_abbreviated: '3'
+    }
+  };
+
+  describe('isClusterFeature', () => {
+    it('should correctly identify a cluster feature', () => {
+      // When: We check if the feature is a cluster
+      const result = isClusterFeature(mockClusterFeature);
+
+      // Then: It should return true
+      expect(result).toBe(true);
+    });
+
+    it('should return false for non-cluster features', () => {
+      // Given: A regular vendor feature
+      const vendor: VendorJson = {
+        id: "1",
+        name: "Test Vendor",
+        longitude: -76.812076,
+        latitude: 18.035770,
+        openingTime: "10:00",
+        closingTime: "22:00",
+        rating: 3,
+      };
+      const vendorFeature = convertVendorJsonToPointFeature(vendor);
+
+      // When: We check if the feature is a cluster
+      const result = isClusterFeature(vendorFeature);
+
+      // Then: It should return false
+      expect(result).toBe(false);
+    });
+  });
+
+  describe('handleVendorPress with cluster', () => {
+    it('should handle cluster press events', () => {
+      // Given: Required props for VendorsMap
+      const setCurrentVendor = jest.fn();
+      const setIsVendorDetailsDisplayed = jest.fn();
+      const vendor: VendorJson = {
+        id: "1",
+        name: "Test Vendor",
+        longitude: -76.812076,
+        latitude: 18.035770,
+        openingTime: "10:00",
+        closingTime: "22:00",
+        rating: 3,
+      };
+      const vendorPoint = convertVendorJsonToPointFeature(vendor);
+      const vendorLocations = featureCollection([vendorPoint]);
+
+      // And: We render the map
+      const {getByTestId} = render(
+        <VendorsMap
+          vendorLocations={vendorLocations}
+          setCurrentVendor={setCurrentVendor}
+          setIsVendorDetailsDisplayed={setIsVendorDetailsDisplayed}
+        />
+      );
+
+      // When: We simulate a cluster press event
+      const map = getByTestId('vendor-map');
+      const mockEvent = {
+        features: [mockClusterFeature]
+      };
+
+      act(() => {
+        // @ts-ignore - we know this event shape works with our handler
+        fireEvent(map, 'onPress', mockEvent);
+      });
+
+      // Then: The current vendor should not be set (since it's a cluster)
+      expect(setCurrentVendor).not.toHaveBeenCalled();
+      expect(setIsVendorDetailsDisplayed).not.toHaveBeenCalled();
+    });
   });
 });
